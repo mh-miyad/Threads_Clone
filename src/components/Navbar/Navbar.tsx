@@ -10,8 +10,16 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 const Navbar = () => {
   return (
-    <div className=" ">
-      <nav className=" flex  justify-between items-center fixed mx-auto top-0  left-0  text-black dark:text-gray-200 bg-white/50 backdrop-blur-lg py-3 dark:bg-black/50 px-10  w-full lg:px-20  rounded-xl border-b-2 border-blue-500/20 ">
+    <motion.div
+      initial={{ scale: 1, rotate: 180 }}
+      animate={{ rotate: 0, scale: 1 }}
+      transition={{
+        type: "spring",
+        stiffness: 260,
+        damping: 20,
+      }}
+    >
+      <nav className=" transition-all ease-linear duration-200 flex  justify-between items-center fixed mx-auto top-0  left-0  text-black dark:text-gray-200 bg-white/50 backdrop-blur-lg py-3 dark:bg-black/50 px-10  w-full lg:px-20  rounded-xl border-b-2 border-blue-500/20 ">
         <div className="">
           <Link href={"/"}>
             <BsColumnsGap
@@ -69,7 +77,7 @@ const Navbar = () => {
           <HiMenuAlt3 size={30} className="cursor-pointer text-gray-900" />
         </div>
       </nav>
-    </div>
+    </motion.div>
   );
 };
 
