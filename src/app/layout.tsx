@@ -4,6 +4,7 @@ import "./globals.css";
 import ReduxProvider from "@/Provider/ReduxProvider";
 import Container from "@/components/Container/Container";
 import Navbar from "@/components/Navbar/Navbar";
+import Html from "@/components/Theme/Html";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,15 +19,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <ReduxProvider>
+    <ReduxProvider>
+      <Html>
+        <body className={inter.className}>
           <Container>
             <Navbar />
-            <div className="max-w-2xl mx-auto">{children}</div>
+            <div className="max-w-2xl mx-auto ">{children}</div>
           </Container>
-        </ReduxProvider>
-      </body>
-    </html>
+        </body>
+      </Html>
+    </ReduxProvider>
   );
 }
