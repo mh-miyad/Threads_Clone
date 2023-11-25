@@ -1,3 +1,5 @@
 {
-  "files.autoSave": "afterDelay"
+  "files.autoSave": "off",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "vs-code-prettier-eslint.prettierLast": true
 }

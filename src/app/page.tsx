@@ -1,3 +1,5 @@
+import CardComp from "@/components/Card/card";
+
 export default function Home() {
   return (
     <>
@@ -5,6 +7,13 @@ export default function Home() {
         {" "}
         hello world{" "}
       </div>
+      <CardComp />
+      <CardComp />
+      <CardComp />
+      <CardComp />
+      <CardComp />
+      <CardComp />
+      <CardComp />
     </>
   );
 }

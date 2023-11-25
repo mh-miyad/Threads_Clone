@@ -11,8 +11,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import DarkBtn from "../DarkMood/DarkBtn";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/Redux/Store";
+import { setModal } from "@/Redux/Utils/utilSilcer";
+import Modal from "../Modal/Modal";
 const Navbar = () => {
   const path = usePathname();
+  const isOpen = useSelector((state: RootState) => state.utils.isOpen);
+  const dispatch = useDispatch();
 
   return (
     <div>
@@ -55,17 +61,16 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link href={"/createPost"}>
-                <IoCreateOutline
-                  size={45}
-                  className={`cursor-pointer text-slate-700 dark:text-gray-100 rounded-lg p-2  ${
-                    path === "/createPost"
-                      ? "bg-gradient-to-br from-indigo-400 to-fuchsia-400/80"
-                      : ""
-                  }  "
+              <IoCreateOutline
+                onClick={() => dispatch(setModal(true))}
+                size={45}
+                className={`cursor-pointer text-slate-700 dark:text-gray-100 rounded-lg p-2  ${
+                  path === "/createPost"
+                    ? "bg-gradient-to-br from-indigo-400 to-fuchsia-400/80"
+                    : ""
+                }  "
   `}
-                />
-              </Link>
+              />
             </li>
             <li>
               <Link href={"/notification"}>
@@ -106,6 +111,7 @@ const Navbar = () => {
           />
         </div>
       </nav>
+      <Modal />
     </div>
   );
 };

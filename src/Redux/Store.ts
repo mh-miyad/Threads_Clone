@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import themeSlice from "./DarkTheme/ThemeSlice";
+import utilSilcer from "./Utils/utilSilcer";
 
 export const store = configureStore({
   reducer: {
     theme: themeSlice,
+    utils: utilSilcer,
   },
 });
 
