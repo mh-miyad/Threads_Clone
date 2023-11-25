@@ -63,7 +63,10 @@ const SearchComp = () => {
                 onClick={() => setSearch(item)}
               >
                 <span> #{item} </span>
-                <span className="uppercase font-extrabold"> 3M</span>
+                <span className="uppercase font-extrabold text-violet-500 text-lg">
+                  {" "}
+                  {Math.floor(Math.random() * 100)} M
+                </span>
               </li>
             ))}
         </ul>

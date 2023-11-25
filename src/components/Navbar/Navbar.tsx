@@ -87,7 +87,7 @@ const Navbar = () => {
                   className={`cursor-pointer text-slate-900 dark:text-gray-100 rounded-lg p-2  ${
                     path === "/profile"
                       ? "bg-gradient-to-br from-indigo-400 to-fuchsia-400/80 text-white"
-                      : "text-white  "
+                      : "  "
                   }  "
   `}
                 />

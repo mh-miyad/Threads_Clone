@@ -1,7 +1,12 @@
+import NotificationBar from "@/components/Notification/NotificationBar";
 import React from "react";
 
 const Notification = () => {
-  return <div>Notification</div>;
+  return (
+    <div>
+      <NotificationBar />
+    </div>
+  );
 };
 
 export default Notification;
