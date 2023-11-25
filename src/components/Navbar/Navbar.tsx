@@ -34,8 +34,8 @@ const Navbar = () => {
                   size={45}
                   className={`cursor-pointer text-slate-700 dark:text-gray-100 rounded-lg p-2  ${
                     path === "/"
-                      ? "bg-gradient-to-br from-indigo-400 to-fuchsia-400/80"
-                      : " bg-black/10  "
+                      ? "bg-gradient-to-br from-indigo-400 to-fuchsia-400/80 text-white"
+                      : "   "
                   }  "
   `}
                 />
@@ -48,7 +48,7 @@ const Navbar = () => {
                   className={`cursor-pointer text-slate-700 dark:text-gray-100 rounded-lg p-2  ${
                     path === "/search"
                       ? "bg-gradient-to-br from-indigo-400 to-fuchsia-400/80"
-                      : " bg-black/10  "
+                      : " "
                   }  "
   `}
                 />
@@ -61,7 +61,7 @@ const Navbar = () => {
                   className={`cursor-pointer text-slate-700 dark:text-gray-100 rounded-lg p-2  ${
                     path === "/createPost"
                       ? "bg-gradient-to-br from-indigo-400 to-fuchsia-400/80"
-                      : " bg-black/10  "
+                      : ""
                   }  "
   `}
                 />
@@ -74,7 +74,7 @@ const Navbar = () => {
                   className={`cursor-pointer text-slate-700 dark:text-gray-100 rounded-lg p-2  ${
                     path === "/notification"
                       ? "bg-gradient-to-br from-indigo-400 to-fuchsia-400/80"
-                      : " bg-black/10  "
+                      : " "
                   }  "
   `}
                 />
