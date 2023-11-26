@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export const utilSlicer = createSlice({
   name: "utils",
@@ -6,8 +6,8 @@ export const utilSlicer = createSlice({
     isOpen: false,
   },
   reducers: {
-    setModal: (state) => {
-      state.isOpen = !state.isOpen;
+    setModal: (state, action: PayloadAction<boolean>) => {
+      state.isOpen = !action.payload || !state.isOpen;
     },
   },
 });
