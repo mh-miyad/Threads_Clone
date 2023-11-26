@@ -11,7 +11,7 @@ const DarkBtn = () => {
   const handleToggleTheme = () => {
     dispatch(toggleTheme(isDark));
   };
-  console.log(isDark);
+
   return (
     <div>
       <Switch onClick={handleToggleTheme} />
