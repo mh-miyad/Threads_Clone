@@ -32,12 +32,12 @@ const SearchComp = () => {
     <div className="  w-full  ">
       <div className="">
         <form>
-          <div className="border-2 border-gray-600/50 overflow-hidden flex h-20 w-full  items-center rounded-lg bg-white/30 p-2 cursor-pointer">
+          <div className="border-2 border-gray-600/50 overflow-hidden flex h-20 w-full  items-center rounded-lg bg-white/30 dark:bg-slate-900 p-2 cursor-pointer">
             <Search className="ml-5 cursor-none" />
             <input
               type="text"
-              className="w-full  h-16 border-none focus:outline-none p-2  "
-              placeholder=" Type Here ..........."
+              className="w-full  h-16 border-none focus:outline-none p-2 dark:bg-slate-950  rounded-lg focus:bg-gray-200 placeholder:text-center"
+              placeholder=" Find Your Favorite Topic... Or Person... that Can Help You"
               value={search}
               onChange={(e) => {
                 setSearch(e.target.value);
