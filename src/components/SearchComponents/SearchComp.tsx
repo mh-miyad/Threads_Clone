@@ -4,7 +4,6 @@ import React, { useState } from "react";
 
 const SearchComp = () => {
   const [search, setSearch] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
   const searchItem = [
     "javaScript",
     "react",

@@ -7,7 +7,7 @@ export const themeSlice = createSlice({
   },
   reducers: {
     toggleTheme: (state, action: PayloadAction<boolean>) => {
-      state.isDark = !action.payload || !state.isDark;
+      state.isDark = !state.isDark;
     },
   },
 });

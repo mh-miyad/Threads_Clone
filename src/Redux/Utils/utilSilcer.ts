@@ -4,13 +4,20 @@ export const utilSlicer = createSlice({
   name: "utils",
   initialState: {
     isOpen: false,
+    isImageLoaded: false,
   },
   reducers: {
-    setModal: (state, action: PayloadAction<boolean>) => {
-      state.isOpen = !action.payload || !state.isOpen;
+    setModal: (state, action: PayloadAction<{ isOpen: boolean }>) => {
+      state.isOpen = action.payload.isOpen;
+    },
+    setIsImageLoaded: (
+      state,
+      action: PayloadAction<{ isImageLoaded: boolean }>
+    ) => {
+      state.isImageLoaded = action.payload.isImageLoaded;
     },
   },
 });
 
-export const { setModal } = utilSlicer.actions;
+export const { setModal, setIsImageLoaded } = utilSlicer.actions;
 export default utilSlicer.reducer;

@@ -62,7 +62,7 @@ const Navbar = () => {
             </li>
             <li>
               <IoCreateOutline
-                onClick={() => dispatch(setModal(true))}
+                onClick={() => dispatch(setModal({ isOpen: true }))}
                 size={45}
                 className={`cursor-pointer text-slate-700 dark:text-gray-100 rounded-lg p-2  ${
                   path === "/createPost"
