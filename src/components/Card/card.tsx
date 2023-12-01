@@ -5,7 +5,7 @@ const CardComp = () => {
   return (
     <Card
       key="1"
-      className="w-[500px] mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden md:max-w-3xl m-3"
+      className=" w-96 lg:w-[500px]  mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden md:max-w-3xl m-3"
     >
       <div className="md:flex">
         <div className="md:flex-shrink-0">

@@ -1,6 +1,6 @@
 import React from "react";
 import ProfileComp from "@/components/Profile/Profile";
-const Profile = () => {
+const ProfilePage = () => {
   return (
     <div className="relative w-full ">
       <ProfileComp />
@@ -8,4 +8,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfilePage;
