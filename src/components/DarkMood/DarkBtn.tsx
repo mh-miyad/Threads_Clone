@@ -18,14 +18,14 @@ const DarkBtn = () => {
         <>
           <button onClick={handleToggleTheme}>
             <p className="sr-only">Dark Mood</p>
-            <BsMoonStars />
+            <BsMoonStars className={`text-fuchsia-500 w-6 h-6 mt-2`} />
           </button>
         </>
       ) : (
         <>
           <button onClick={handleToggleTheme}>
             <p className="sr-only">Day Mood </p>
-            <HiOutlineSun />
+            <HiOutlineSun className={`text-gray-600 w-6 h-6 mt-2`} />
           </button>
         </>
       )}

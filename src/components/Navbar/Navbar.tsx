@@ -23,6 +23,7 @@ const Navbar = () => {
   return (
     <div>
       <nav className=" transition-all ease-linear duration-200 flex  justify-between items-center fixed mx-auto top-0  left-0  text-black dark:text-gray-200 bg-white/50 backdrop-blur-lg py-3 dark:bg-slate-950 px-10  w-full lg:px-20  rounded-xl border-b-2 border-blue-500/20 ">
+        <div className="md:hidden"></div>
         <div className="">
           <Link href={"/"}>
             <Image
@@ -32,7 +33,7 @@ const Navbar = () => {
             />
           </Link>
         </div>
-        <div className="hidden sm:block">
+        <div className="hidden md:block">
           <ul className="flex justify-around items-center space-x-14">
             <li>
               <Link href={"/"} className="mt-1">
@@ -103,13 +104,14 @@ const Navbar = () => {
             </li>
           </ul>{" "}
         </div>
-        <div>
+        <div className="md:hidden">
           {" "}
           <HiMenuAlt3
             size={30}
             className="cursor-pointer text-gray-900 dark:text-gray-300"
           />
         </div>
+        <div className="hidden md:block"></div>
       </nav>
       <Modal />
     </div>
