@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { TbHome2, TbHeartCode } from "react-icons/tb";
 import { IoCreateOutline } from "react-icons/io5";
-import { PiUserDuotone } from "react-icons/pi";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { LuSearchCode } from "react-icons/lu";
 import { FaRegUser } from "react-icons/fa";
@@ -11,15 +10,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import DarkBtn from "../DarkMood/DarkBtn";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/Redux/Store";
+import { useDispatch } from "react-redux";
 import { setModal } from "@/Redux/Utils/utilSilcer";
 import Modal from "../Modal/Modal";
 const Navbar = () => {
   const path = usePathname();
   // const isOpen = useSelector((state: RootState) => state.utils.isOpen);
   const dispatch = useDispatch();
-  const [openMenu, setOpenMenu] = useState(true);
+  const [openMenu, setOpenMenu] = useState(false);
 
   return (
     <>
@@ -219,7 +217,7 @@ const Navbar = () => {
                         </Link>
                       </li>
 
-                      <li>
+                      <li className="flex justify-center ">
                         <DarkBtn />
                       </li>
                     </ul>
