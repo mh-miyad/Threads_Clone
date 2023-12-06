@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { TbHome2, TbHeartCode } from "react-icons/tb";
 import { IoCreateOutline } from "react-icons/io5";
 import { PiUserDuotone } from "react-icons/pi";
@@ -17,8 +17,9 @@ import { setModal } from "@/Redux/Utils/utilSilcer";
 import Modal from "../Modal/Modal";
 const Navbar = () => {
   const path = usePathname();
-  const isOpen = useSelector((state: RootState) => state.utils.isOpen);
+  // const isOpen = useSelector((state: RootState) => state.utils.isOpen);
   const dispatch = useDispatch();
+  const [openMenu, setOpenMenu] = useState(true);
 
   return (
     <div>
@@ -102,18 +103,122 @@ const Navbar = () => {
             <li>
               <DarkBtn />
             </li>
-          </ul>{" "}
+          </ul>
         </div>
         <div className="md:hidden">
           {" "}
-          <HiMenuAlt3
-            size={30}
-            className="cursor-pointer text-gray-900 dark:text-gray-300"
-          />
+          <button onClick={() => setOpenMenu(!openMenu)}>
+            <p className="sr-only">menu</p>
+            <HiMenuAlt3
+              size={30}
+              className="cursor-pointer text-gray-900 dark:text-gray-300"
+            />
+          </button>
         </div>
         <div className="hidden md:block"></div>
       </nav>
       <Modal />
+      <>
+        {openMenu && (
+          <>
+            <div
+              className={` fixed top-0 z-50 right-0 bg-white/5 w-full h-auto px-10 backdrop-blur-xl py-10 ${
+                openMenu ? "translate-x-0" : "translate-x-[100vw] "
+              }`}
+            >
+              <button
+                onClick={() => setOpenMenu(false)}
+                className="text-4xl   w-full z-50 text-right  cursor-pointer text-red-500  font-thin scale-90 hover:scale-100 transition-all ease-linear duration-200"
+              >
+                <span className="border px-3 rounded-lg border-red-500 ">
+                  x
+                </span>
+              </button>
+              <ul className="flex  flex-col  space-y-12">
+                <li className="flex justify-center ">
+                  <Link href={"/"} className="mt-1 flex items-center gap-x-10 ">
+                    <TbHome2
+                      size={35}
+                      className={`cursor-pointer text-slate-700 dark:text-gray-100 rounded-lg   ${
+                        path === "/"
+                          ? "bg-gradient-to-br from-indigo-400 to-fuchsia-400/80 text-white p-1"
+                          : "   "
+                      }  "
+  `}
+                    />
+                    <span className="text-slate-900 dark:text-gray-100  text-xl font-bold">
+                      Home
+                    </span>
+                  </Link>
+                </li>
+
+                <li className="flex justify-center ">
+                  <Link
+                    href={"/search"}
+                    className="mt-1 flex items-center gap-x-10 "
+                  >
+                    <LuSearchCode
+                      size={35}
+                      className={`cursor-pointer text-slate-700 dark:text-gray-100 rounded-lg   ${
+                        path === "/search"
+                          ? "bg-gradient-to-br from-indigo-400 to-fuchsia-400/80 text-white p-1"
+                          : "   "
+                      }  "
+  `}
+                    />
+                    <span className="text-slate-900 dark:text-gray-100  text-xl font-bold">
+                      Search
+                    </span>
+                  </Link>
+                </li>
+
+                <li className="flex justify-center ">
+                  <Link
+                    href={"/notification"}
+                    className="mt-1 flex items-center  "
+                  >
+                    <TbHeartCode
+                      size={34}
+                      className={` ml-14 cursor-pointer text-slate-700 dark:text-gray-100 rounded-lg   ${
+                        path === "/notification"
+                          ? "bg-gradient-to-br from-indigo-400 to-fuchsia-400/80 text-white p-1 "
+                          : "   "
+                      }  "
+  `}
+                    />
+                    <span className="text-slate-900 dark:text-gray-100  text-xl font-bold ml-10">
+                      Notification
+                    </span>
+                  </Link>
+                </li>
+                <li className="flex justify-center ">
+                  <Link
+                    href={"/profile"}
+                    className="mt-1 flex items-center gap-x-10 "
+                  >
+                    <FaRegUser
+                      size={35}
+                      className={`cursor-pointer text-slate-700 dark:text-gray-100 rounded-lg   ${
+                        path === "/profile"
+                          ? "bg-gradient-to-br from-indigo-400 to-fuchsia-400/80 text-white p-2"
+                          : "   "
+                      }  "
+  `}
+                    />
+                    <span className="text-slate-900 dark:text-gray-100  text-xl font-bold">
+                      Profile
+                    </span>
+                  </Link>
+                </li>
+
+                <li>
+                  <DarkBtn />
+                </li>
+              </ul>
+            </div>
+          </>
+        )}
+      </>
     </div>
   );
 };
