@@ -5,7 +5,7 @@ const CardComp = () => {
   return (
     <Card
       key="1"
-      className=" w-96 lg:w-[500px]  mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden md:max-w-3xl m-3"
+      className="w-72 md:w-96 lg:w-[500px]  mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden md:max-w-3xl m-3"
     >
       <div className="md:flex">
         <div className="md:flex-shrink-0">
@@ -36,7 +36,8 @@ const CardComp = () => {
             always learning. You’re anonymous and afraid of your own shadow.
             Enjoy the sidelines.
           </p>
-          <div className="flex mt-6 justify-between items-center">
+
+          <div className="flex mt-6 justify-between items-center flex-col mx-auto md:flex-row gap-3 ">
             <div className="flex space-x-2 text-gray-400 dark:text-gray-300">
               <div className="flex items-center">
                 <IconHeart className="h-6 w-6 text-red-500" />
