@@ -7,13 +7,15 @@ export default function Home() {
         {" "}
         hello world{" "}
       </div>
-      <CardComp />
-      <CardComp />
-      <CardComp />
-      <CardComp />
-      <CardComp />
-      <CardComp />
-      <CardComp />
+      <div className="flex justify-center flex-col gap-10">
+        <CardComp />
+        <CardComp />
+        <CardComp />
+        <CardComp />
+        <CardComp />
+        <CardComp />
+        <CardComp />
+      </div>
     </>
   );
 }
