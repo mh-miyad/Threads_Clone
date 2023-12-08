@@ -1,0 +1,11 @@
+::-webkit-scrollbar {
+  width: 4.5px;
+}
+
+::-webkit-scrollbar-track {
+  @apply rounded-lg bg-white;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply rounded-lg bg-violet-500;
+}
