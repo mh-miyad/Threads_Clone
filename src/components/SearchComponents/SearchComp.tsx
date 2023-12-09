@@ -32,7 +32,7 @@ const SearchComp = () => {
     <div className="  w-full  ">
       <div className="">
         <form>
-          <div className="border-2 border-gray-600/50 overflow-hidden flex h-20 w-full  items-center rounded-lg bg-white/30 dark:bg-slate-900 p-2 cursor-pointer">
+          <div className="border-2 border-gray-600/50 overflow-hidden flex h-20 w-full  items-center rounded-lg bg-white/30 dark:bg-slate-900 p-2 cursor-pointer scale-95 hover:scale-100 transition-all ease-linear duration-200 hover:mb-5">
             <Search className="ml-5 cursor-none" />
             <input
               type="text"
@@ -47,8 +47,8 @@ const SearchComp = () => {
         </form>
       </div>
 
-      <div className="  h-60 overflow-y-scroll  ">
-        <h4 className="font-bold text-indigo-500 mt-5 ">
+      <div className=" max-w-2xl mx-auto w-full  h-auto  fixed bottom-0 md:left-40 lg:left-60 lg:right-56 md:right-40 top-40  overflow-y-auto px-5 transition-all ease-linear duration-200  scroll-smooth right-10 left-10 ">
+        <h4 className="font-bold text-indigo-500 mt-10 ">
           {" "}
           Trending On .........
         </h4>
@@ -62,9 +62,8 @@ const SearchComp = () => {
                 onClick={() => setSearch(item)}
               >
                 <span> #{item} </span>
-                <span className="uppercase font-extrabold text-violet-500 text-lg">
-                  {" "}
-                  {Math.floor(Math.random() * 100)} M
+                <span className=" lowercase bg-violet-500 text-white px-4 py-1 rounded-full scale-95 hover:scale-100 transition-all ease-linear duration-200 text-lg active:scale-90">
+                  follow
                 </span>
               </li>
             ))}
