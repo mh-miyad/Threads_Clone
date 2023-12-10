@@ -3,12 +3,12 @@ import { Avatar, Tabs } from "keep-react";
 import React, { useEffect, useState } from "react";
 import { SiAngular, SiJavascript, SiReact, SiVuedotjs } from "react-icons/si";
 const ProfileComp = () => {
-  const [count, setCount] = useState(100);
+  const [count, setCount] = useState(900);
 
   useEffect(() => {
     const myInterval = setInterval(() => {
-      setCount(Math.floor(Math.random() * 10));
-    }, 5000);
+      setCount(Math.floor(Math.random() * 1000));
+    }, 2000);
 
     // Cleanup function
     return () => {
@@ -23,10 +23,14 @@ const ProfileComp = () => {
         <div>
           <div className="flex justify-between items-center mb-5">
             <div>
-              <h1 className="text-2xl lg:text-3xl font-semibold text-gray-700 drop-shadow-2xl">
+              <h1
+                className="text-2xl lg:text-3xl font-semibold text-gray-700 
+              bg-gradient-to-tr text-clip bg-clip-text text-transparent from-fuchsia-500 to-violet-500
+              drop-shadow-2xl"
+              >
                 Mahamudul hasan Miyad
               </h1>
-              <p className="text-xs sm:text-sm text-gray-500 lg:text-lg">
+              <p className="text-xs sm:text-sm text-gray-500 lg:text-lg dark:text-white/80">
                 mahamudulhasan_miyad{" "}
                 <span className="drop-shadow-2xl rounded-md font-light lg:leading-loose inline-block lg:px-1 text-xs text-white bg-gradient-to-br from-purple-500 to-indigo-400 px-2">
                   .codeTalkies
@@ -38,11 +42,18 @@ const ProfileComp = () => {
             </div>
           </div>
           <div className="flex justify-between items-center">
-            <div className="bg-slate-500/30 drop-shadow-2xl rounded-xl font-medium lg:inline-block p-2 text-xs lg:text-xl lg:px-4 lg:py-2 text-white bg-gradient-to-br from-purple-500 to-indigo-400 ">
+            <div className=" dark:text-white text-neutral-600 flex gap-2 items-center">
               <span className="text-black/70 font-extrabold text-sm">
-                {count}m
+                {count}
+                {count >= 0 && count <= 999
+                  ? ""
+                  : count >= 1000 && count <= 999999
+                  ? "k"
+                  : count >= 1000000 && count <= 999999999
+                  ? "M"
+                  : "B"}
               </span>{" "}
-              <span>followers</span>
+              <span>Follower</span>
             </div>
             <div className=" dark:text-white text-neutral-600">
               <span className="text-sm sm:text-xl lg:text-2xl">

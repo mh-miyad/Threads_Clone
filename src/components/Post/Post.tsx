@@ -26,18 +26,18 @@ const Post: React.FC<PostProps> = ({ post }) => {
     <div className="bg-white p-4 rounded-lg shadow-md md:flex md:flex-col lg:flex-row">
       <div className="flex items-center">
         <Image
-          src={post.avatarUrl}
+          src={post?.avatarUrl}
           alt="Avatar"
           className="w-12 h-12 rounded-full mr-4 md:mr-0 md:mb-4 lg:mr-4"
         />
         <div className="md:w-full">
-          <h3 className="font-bold text-lg">{post.username}</h3>
-          <span className="text-gray-500">@{post.handle}</span>
+          <h3 className="font-bold text-lg">{post?.username}</h3>
+          <span className="text-gray-500">@{post?.handle}</span>
         </div>
       </div>
-      <p className="mt-4 text-gray-700">{post.content}</p>
+      <p className="mt-4 text-gray-700">{post?.content}</p>
       <div className="mt-4 flex flex-col md:flex-row md:justify-between">
-        {post.showViewTweet && (
+        {post?.showViewTweet && (
           <a
             href={TWITTER_URL}
             target="_blank"
@@ -60,7 +60,7 @@ const Post: React.FC<PostProps> = ({ post }) => {
             )}
             {isLiked && <span className="text-red-500 font-bold">1</span>}
           </button>
-          {post.showViewTweet && (
+          {post?.showViewTweet && (
             <a
               href={TWITTER_URL}
               target="_blank"
