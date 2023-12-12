@@ -1,14 +1,21 @@
 "use client";
+import { AuthContext } from "@/Provider/ContextApi";
 import DarkBtn from "@/components/DarkMood/DarkBtn";
+import { createUser } from "@/firebase/firebase.main";
+import axios from "axios";
 import Link from "next/link";
-import React from "react";
+import { redirect, useRouter } from "next/navigation";
+import React, { useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
 type Inputs = {
   name: string;
   email: string;
   password: string;
 };
 const RegisterPage = () => {
+  const router = useRouter();
+  // const { login } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -16,7 +23,41 @@ const RegisterPage = () => {
     reset,
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
+    const email = data.email;
+    const password = data.password;
+    if (data.password.length < 6) {
+      toast.error("Password should be at least 6 characters");
+
+      return;
+    } else {
+      createUser(email, password)
+        .then((res) => {
+          const token = res.user.refreshToken;
+          if (token) {
+            axios
+              .post("/api/User/register", {
+                name: data.name,
+                email: data.email,
+                password: data.password,
+              })
+              .then((res) => {
+                if (res.data.massage === "user created") {
+                  toast.success("User Created Successfully");
+                  reset();
+                  router.push("/login");
+                } else {
+                  toast.error(res.data.massage);
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
   return (
     <div className=" relative">
@@ -83,6 +124,7 @@ const RegisterPage = () => {
           </div>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };

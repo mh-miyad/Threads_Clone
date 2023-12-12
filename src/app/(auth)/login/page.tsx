@@ -1,13 +1,18 @@
 "use client";
 import DarkBtn from "@/components/DarkMood/DarkBtn";
+import { loginUser } from "@/firebase/firebase.main";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
+import axios from "axios";
 import { SubmitHandler, useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
 type Inputs = {
   email: string;
   password: string;
 };
 const LoginPage = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -15,7 +20,28 @@ const LoginPage = () => {
     reset,
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
+    const email = data.email;
+    const password = data.password;
+    loginUser(email, password)
+      .then((res) => {
+        const id = res.user.uid;
+        if (id) {
+          axios
+            .post(`/api/User`, { email: email, password: password })
+            .then((res) => {
+              if (res.data.massage === "success") {
+                toast.success("Login Successfully");
+                reset();
+                router.push("/");
+              } else {
+                toast.error(res.data.massage);
+              }
+            });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <div className=" relative">
@@ -74,6 +100,7 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };
