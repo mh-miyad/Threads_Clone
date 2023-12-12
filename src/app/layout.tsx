@@ -5,6 +5,7 @@ import ReduxProvider from "@/Provider/ReduxProvider";
 import Container from "@/components/Container/Container";
 import Navbar from "@/components/Navbar/Navbar";
 import Html from "@/components/Theme/Html";
+import ContextApi from "@/Provider/ContextApi";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,12 +22,14 @@ export default function RootLayout({
   return (
     <ReduxProvider>
       <Html>
-        <body className={inter.className}>
-          <Container>
-            <Navbar />
-            <div className="max-w-2xl mx-auto ">{children}</div>
-          </Container>
-        </body>
+        <ContextApi>
+          <body className={inter.className}>
+            <Container>
+              <Navbar />
+              <div className="max-w-2xl mx-auto ">{children}</div>
+            </Container>
+          </body>
+        </ContextApi>
       </Html>
     </ReduxProvider>
   );
