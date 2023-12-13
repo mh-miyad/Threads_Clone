@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { useEffect } from "react";
 
-export function middleware(request: NextRequest, response: NextResponse) {
-  const token = request.cookies.get("token");
+export async function middleware(request: NextRequest, response: NextResponse) {
+  const token = await request.cookies.has("token");
+
   if (!token) {
     return NextResponse.redirect(new URL("/login", request.url));
   }

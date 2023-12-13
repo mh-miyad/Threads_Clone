@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { TbHome2, TbHeartCode } from "react-icons/tb";
 import { IoCreateOutline } from "react-icons/io5";
 import { HiMenuAlt3 } from "react-icons/hi";
@@ -8,16 +8,25 @@ import { FaRegUser } from "react-icons/fa";
 import logo from "../../../public/CodiTalk.svg";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import DarkBtn from "../DarkMood/DarkBtn";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setModal } from "@/Redux/Utils/utilSilcer";
+import { CiMenuKebab } from "react-icons/ci";
 import Modal from "../Modal/Modal";
+import { AuthContext } from "@/Provider/ContextApi";
+import { RootState } from "@/Redux/Store";
+import { logout } from "@/firebase/firebase.main";
+import Cookie from "js-cookie";
+import toast from "react-hot-toast";
 const Navbar = () => {
+  const router = useRouter();
   const path = usePathname();
   // const isOpen = useSelector((state: RootState) => state.utils.isOpen);
   const dispatch = useDispatch();
+  const { user, loading, setLoading } = useContext(AuthContext);
   const [openMenu, setOpenMenu] = useState(false);
+  const isDark = useSelector((state: RootState) => state.theme.isDark);
 
   return (
     <>
@@ -118,7 +127,15 @@ const Navbar = () => {
                   />
                 </button>
               </div>
-              <div className="hidden md:block"></div>
+              <div className="hidden md:block">
+                {loading ? (
+                  <> Login...</>
+                ) : (
+                  <>
+                    <CiMenuKebab size={30} className={`cursor-pointer`} />
+                  </>
+                )}
+              </div>
             </nav>
             <Modal />
             <>
@@ -217,8 +234,28 @@ const Navbar = () => {
                         </Link>
                       </li>
 
-                      <li className="flex justify-center ">
-                        <DarkBtn />
+                      {user && (
+                        <li className="flex justify-center">
+                          <button
+                            className="text-center px-8 py-2  rounded-lg border-2 border-pink-600  dark:text-white font-semibold hover:bg-pink-600 hover:text-white translate-x-4sition-all ease-linear duration-200  scale-90 active:scale-100"
+                            onClick={async () => {
+                              logout();
+                              await Cookie.remove("token");
+                              router.push("/login");
+                              toast.success("Logout Successfully");
+                            }}
+                          >
+                            LogOut
+                          </button>
+                        </li>
+                      )}
+
+                      <li className="flex justify-center  items-center gap-5">
+                        <DarkBtn />{" "}
+                        <span className="font-bold text-gray-400 drop-shadow-2xl ">
+                          {" "}
+                          {isDark ? "Dark Mood" : "Light Mood"}
+                        </span>
                       </li>
                     </ul>
                   </div>

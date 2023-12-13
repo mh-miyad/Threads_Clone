@@ -4,7 +4,7 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithRedirect,
-  onAuthStateChanged,
+  signOut,
 } from "firebase/auth";
 import { auth } from "./firebase.init";
 
@@ -20,4 +20,8 @@ export const loginUser = (email: string, password: string) => {
 
 export const googleSignIn = () => {
   return signInWithRedirect(auth, provider);
+};
+
+export const logout = () => {
+  return signOut(auth);
 };

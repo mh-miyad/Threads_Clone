@@ -1,8 +1,10 @@
 "use client";
+import { AuthContext } from "@/Provider/ContextApi";
 import { Avatar, Tabs } from "keep-react";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { SiAngular, SiJavascript, SiReact, SiVuedotjs } from "react-icons/si";
 const ProfileComp = () => {
+  const { user } = useContext(AuthContext);
   const [count, setCount] = useState(900);
 
   useEffect(() => {
