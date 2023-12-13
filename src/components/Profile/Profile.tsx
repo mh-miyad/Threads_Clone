@@ -1,12 +1,15 @@
 "use client";
 import { AuthContext } from "@/Provider/ContextApi";
+import { Dialog } from "@headlessui/react";
 import { Avatar, Tabs } from "keep-react";
 import React, { useContext, useEffect, useState } from "react";
 import { SiAngular, SiJavascript, SiReact, SiVuedotjs } from "react-icons/si";
+import { IoClose } from "react-icons/io5";
+import UpdateProfile from "../UpdateProfile/UpdateProfile";
 const ProfileComp = () => {
   const { user } = useContext(AuthContext);
   const [count, setCount] = useState(900);
-
+  let [isOpen, setIsOpen] = useState(true);
   useEffect(() => {
     const myInterval = setInterval(() => {
       setCount(Math.floor(Math.random() * 1000));
@@ -33,7 +36,7 @@ const ProfileComp = () => {
                 Mahamudul hasan Miyad
               </h1>
               <p className="text-xs sm:text-sm text-gray-500 lg:text-lg dark:text-white/80">
-                mahamudulhasan_miyad{" "}
+                {user.email}
                 <span className="drop-shadow-2xl rounded-md font-light lg:leading-loose inline-block lg:px-1 text-xs text-white bg-gradient-to-br from-purple-500 to-indigo-400 px-2">
                   .codeTalkies
                 </span>{" "}
@@ -45,7 +48,7 @@ const ProfileComp = () => {
           </div>
           <div className="flex justify-between items-center">
             <div className=" dark:text-white text-neutral-600 flex gap-2 items-center">
-              <span className="text-black/70 font-extrabold text-sm">
+              <span className="text-black/70 dark:text-white font-extrabold text-sm">
                 {count}
                 {count >= 0 && count <= 999
                   ? ""
@@ -55,7 +58,7 @@ const ProfileComp = () => {
                   ? "M"
                   : "B"}
               </span>{" "}
-              <span>Follower</span>
+              <span className="text-sm">Follower</span>
             </div>
             <div className=" dark:text-white text-neutral-600">
               <span className="text-sm sm:text-xl lg:text-2xl">
@@ -98,7 +101,10 @@ const ProfileComp = () => {
       </div>
 
       <div className=" text-center">
-        <button className="w-full bg-gradient-to-br from-purple-500 to-indigo-400 text-white font-semibold py-2 px-4 rounded-md ">
+        <button
+          className="w-full bg-gradient-to-br from-purple-500 to-indigo-400 text-white font-semibold py-2 px-4 rounded-md "
+          onClick={() => setIsOpen(true)}
+        >
           {" "}
           Edit Profile
         </button>
@@ -118,6 +124,34 @@ const ProfileComp = () => {
             Settings content
           </Tabs.Item>
         </Tabs>
+      </div>
+      <div>
+        <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
+          <div
+            className="fixed inset-0 flex w-screen items-center justify-center p-4 h-auto backdrop-blur-lg bg-black/30"
+            aria-hidden="true"
+          >
+            <Dialog.Panel className="w-full h-auto max-w-2xl border border-gray-600 dark:border-purple-600 bg-white dark:bg-slate-950 shadow-2xl shadow-purple-500/20 p-4  rounded-xl ">
+              <div className="flex justify-end p-3">
+                <IoClose
+                  size={30}
+                  className="border-2 border-purple-400 cursor-pointer rounded-lg p-1 bg-purple-500 text-white"
+                  onClick={() => setIsOpen(false)}
+                />
+              </div>
+              <Dialog.Title
+                className={"font-bold text-2xl text-center text-purple-500"}
+              >
+                {" "}
+                Edit Your Profile{" "}
+              </Dialog.Title>
+
+              <div className="mb-6 mt-4">
+                <UpdateProfile />
+              </div>
+            </Dialog.Panel>
+          </div>
+        </Dialog>
       </div>
     </>
   );
