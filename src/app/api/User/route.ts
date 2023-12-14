@@ -21,7 +21,9 @@ export const POST = async (req: Request, res: Response) => {
     const token = jwt.sign({ email: email }, `${process.env.JWT_SECRET}`, {
       expiresIn: "1d",
     });
-    await cookies().set("token", token);
+    await cookies().set("token", token, {
+      expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+    });
 
     return NextResponse.json({ massage: "success" });
   } else {
