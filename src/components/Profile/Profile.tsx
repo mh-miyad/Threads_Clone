@@ -28,7 +28,7 @@ const ProfileComp = () => {
                 Mahamudul hasan Miyad
               </h1>
               <p className="text-xs sm:text-sm text-gray-500 lg:text-lg dark:text-white/80">
-                {`mm`}
+                {user?.email}
                 <span className="drop-shadow-2xl rounded-md font-light lg:leading-loose inline-block lg:px-1 text-xs text-white bg-gradient-to-br from-purple-500 to-indigo-400 px-2">
                   .codeTalkies
                 </span>{" "}
@@ -120,10 +120,10 @@ const ProfileComp = () => {
       <div>
         <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
           <div
-            className="fixed inset-0 flex w-screen items-center justify-center p-4 h-auto backdrop-blur-lg bg-black/30"
+            className="fixed inset-0 flex justify-center items-center  p-4 backdrop-blur-lg bg-black/30"
             aria-hidden="true"
           >
-            <Dialog.Panel className="w-full border-2 border-violet-500 max-w-lg dark:border-purple-600 bg-white dark:bg-slate-950 shadow-2xl shadow-purple-500/20  rounded-xl ">
+            <Dialog.Panel className="w-full border-2 border-violet-500 max-w-xl md:max-w-lg dark:border-purple-600 bg-white dark:bg-slate-950 shadow-2xl shadow-purple-500/20  rounded-xl scale-75 md:scale-90 ">
               <div className="flex justify-end p-3">
                 <IoClose
                   size={30}
@@ -132,7 +132,7 @@ const ProfileComp = () => {
                 />
               </div>
 
-              <div className="my-2 w-full flex-1">
+              <div className="flex justify-center w-full  ">
                 <UpdateProfile />
               </div>
             </Dialog.Panel>

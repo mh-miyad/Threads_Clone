@@ -1,9 +1,10 @@
 import { AuthContext } from "@/Provider/ContextApi";
 import { ShoppingCart } from "lucide-react";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import SkillSection from "./SkillSection";
-type Inputs = {
+import toast, { Toaster } from "react-hot-toast";
+
+interface Inputs {
   name: string;
   email: string;
   bio: string;
@@ -14,20 +15,39 @@ type Inputs = {
   github: string;
   linkedin: string;
   portfolio: string;
-  skill: [{}];
-};
+  skill: string[];
+}
 const UpdateProfile = () => {
   const { user } = useContext(AuthContext);
+  const [skill, setSkill] = useState<string[]>([]);
+  const [newSkill, setNewSkill] = useState<string>("");
+  const handleAddSkill = () => {
+    if (newSkill.trim() !== "" && !skill.includes(newSkill)) {
+      if (skill.length < 5) {
+        setSkill([...skill, newSkill]);
+        setNewSkill("");
+      } else {
+        // Display a warning message or apply styling to indicate the limit has been reached
+        toast.error("You can only add up to 5 skills.");
+      }
+    }
+  };
+
+  const handleDeleteSkill = (index: number) => {
+    const updatedSkills = [...skill];
+    updatedSkills.splice(index, 1);
+    setSkill(updatedSkills);
+  };
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data, skill);
   return (
-    <div className="w-full flex justify-center items-center flex-col">
-      <div className="overflow-hidden rounded-xl bg-gray-100 dark:bg-slate-900 dark:text-white  text-black p-4 shadow">
+    <div className="w-full px-2 sm:px-10 mb-4  ">
+      <div className=" rounded-xl bg-gray-100 dark:bg-slate-900 dark:text-white  text-black p-4 shadow">
         <p className="text-sm font-bold text-gray-900">Personal Info</p>
         <form
           action=""
@@ -92,11 +112,12 @@ const UpdateProfile = () => {
               >
                 Bio
               </label>
-              <input
+              <textarea
                 className="flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                type="text"
                 placeholder="Write Your Bio"
                 id="bio"
+                cols={4}
+                rows={3}
                 maxLength={100}
                 {...register("bio", { required: true })}
               />
@@ -179,10 +200,50 @@ const UpdateProfile = () => {
               {...register("portfolio", { required: true })}
             />
           </div>
-          <SkillSection />
+          <div className="w-full">
+            <label
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              htmlFor="phone"
+            >
+              Add Your Skill
+            </label>
+            <div className="flex items-center">
+              <input
+                className="flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                type="text"
+                placeholder="Add Your Skill"
+                value={newSkill}
+                onChange={(e) => setNewSkill(e.target.value)}
+              />
+              <button
+                type="button"
+                className="ml-2 bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-semibold hover:bg-gray-800 focus:outline-none focus-visible:ring focus-visible:ring-gray-300 focus-visible:ring-opacity-50"
+                onClick={handleAddSkill}
+              >
+                Add
+              </button>
+            </div>
+          </div>
+          <div className="w-full">
+            {skill.map((skill, index) => (
+              <div
+                key={index}
+                className="flex items-center  gap-1  justify-between  rounded-md p-2 text-[20px] font-semibold w-full scale-50 border border-black/30 uppercase bg-white "
+              >
+                <p className="">{skill}</p>
+                <button
+                  type="button"
+                  className="text-[22px] font-mono text-red-600"
+                  onClick={() => handleDeleteSkill(index)}
+                >
+                  X
+                </button>
+              </div>
+            ))}
+          </div>
           <div className="col-span-2 grid">
             <button
-              type="button"
+              type="submit"
               className="w-full rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
             >
               Next Step
@@ -190,6 +251,7 @@ const UpdateProfile = () => {
           </div>
         </form>
       </div>
+      <Toaster />
     </div>
   );
 };
