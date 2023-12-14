@@ -79,7 +79,6 @@ const UpdateProfile = () => {
                 type="email"
                 placeholder="Enter your email"
                 id="email"
-                value={user?.email}
                 {...register("email", { required: true })}
               />
             </div>

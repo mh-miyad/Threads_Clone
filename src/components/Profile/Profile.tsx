@@ -36,7 +36,7 @@ const ProfileComp = () => {
                 Mahamudul hasan Miyad
               </h1>
               <p className="text-xs sm:text-sm text-gray-500 lg:text-lg dark:text-white/80">
-                {user.email}
+                {`mm`}
                 <span className="drop-shadow-2xl rounded-md font-light lg:leading-loose inline-block lg:px-1 text-xs text-white bg-gradient-to-br from-purple-500 to-indigo-400 px-2">
                   .codeTalkies
                 </span>{" "}
