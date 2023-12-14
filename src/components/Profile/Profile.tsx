@@ -8,19 +8,11 @@ import { IoClose } from "react-icons/io5";
 import UpdateProfile from "../UpdateProfile/UpdateProfile";
 const ProfileComp = () => {
   const { user } = useContext(AuthContext);
-  const [count, setCount] = useState(900);
+
   let [isOpen, setIsOpen] = useState(true);
-  useEffect(() => {
-    const myInterval = setInterval(() => {
-      setCount(Math.floor(Math.random() * 1000));
-    }, 2000);
 
-    // Cleanup function
-    return () => {
-      clearInterval(myInterval);
-    };
-  }, []); // The empty dependency array ensures that the effect runs only once on mount
-
+  // The empty dependency array ensures that the effect runs only once on mount
+  console.log(user);
   return (
     <>
       <div className="relative max-w-full w-full lg:max-w-2xl my-10 lg:px-10 ">
@@ -49,12 +41,12 @@ const ProfileComp = () => {
           <div className="flex justify-between items-center">
             <div className=" dark:text-white text-neutral-600 flex gap-2 items-center">
               <span className="text-black/70 dark:text-white font-extrabold text-sm">
-                {count}
-                {count >= 0 && count <= 999
+                {1200}
+                {1200 >= 0 && 121 <= 999
                   ? ""
-                  : count >= 1000 && count <= 999999
+                  : 1200 >= 1000 && 121 <= 999999
                   ? "k"
-                  : count >= 1000000 && count <= 999999999
+                  : 1200 >= 1000000 && 121 <= 999999999
                   ? "M"
                   : "B"}
               </span>{" "}

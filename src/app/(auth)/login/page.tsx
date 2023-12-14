@@ -12,6 +12,10 @@ type Inputs = {
   password: string;
 };
 const LoginPage = () => {
+  const url =
+    process.env.NODE_ENV === "production"
+      ? "https://coditalk.vercel.app/api/User"
+      : "/api/User";
   const router = useRouter();
   const {
     register,
@@ -26,17 +30,15 @@ const LoginPage = () => {
       .then((res) => {
         const id = res.user.uid;
         if (id) {
-          axios
-            .post(`/api/User`, { email: email, password: password })
-            .then((res) => {
-              if (res.data.massage === "success") {
-                toast.success("Login Successfully");
-                reset();
-                router.push("/");
-              } else {
-                toast.error(res.data.massage);
-              }
-            });
+          axios.post(url, { email: email, password: password }).then((res) => {
+            if (res.data.massage === "success") {
+              toast.success("Login Successfully");
+              reset();
+              router.push("/");
+            } else {
+              toast.error(res.data.massage);
+            }
+          });
         }
       })
       .catch((err) => {

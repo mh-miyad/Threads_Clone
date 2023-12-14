@@ -3,14 +3,14 @@ import { auth } from "@/firebase/firebase.init";
 import { onAuthStateChanged } from "firebase/auth";
 import React, { createContext, useEffect, useState } from "react";
 interface User {
-  user: object | null;
+  user: null;
   setUser: React.Dispatch<React.SetStateAction<object | null>>;
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const AuthContext = createContext<User>({
-  user: {},
+  user: null,
   setUser: () => {},
   loading: true,
   setLoading: () => {},
@@ -19,7 +19,7 @@ export const AuthContext = createContext<User>({
 const ContextApi = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<any>();
   const [loading, setLoading] = useState(true);
-  const user1 = auth.currentUser;
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user: any) => {
       setLoading(true);
@@ -29,7 +29,7 @@ const ContextApi = ({ children }: { children: React.ReactNode }) => {
       }
     });
     return () => unsubscribe();
-  }, [user1, user]);
+  }, []);
 
   const authValue = {
     user,

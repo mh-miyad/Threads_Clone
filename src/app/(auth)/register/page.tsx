@@ -14,6 +14,10 @@ type Inputs = {
   password: string;
 };
 const RegisterPage = () => {
+  const url =
+    process.env.NODE_ENV === "production"
+      ? "https://coditalk.vercel.app/api/User/register"
+      : "/api/User/register";
   const router = useRouter();
   // const { login } = useContext(AuthContext);
   const {
@@ -35,7 +39,7 @@ const RegisterPage = () => {
           const token = res.user.refreshToken;
           if (token) {
             axios
-              .post("/api/User/register", {
+              .post(url, {
                 name: data.name,
                 email: data.email,
                 password: data.password,
