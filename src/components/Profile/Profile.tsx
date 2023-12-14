@@ -1,18 +1,27 @@
 "use client";
 import { AuthContext } from "@/Provider/ContextApi";
 import { Dialog } from "@headlessui/react";
-import { Avatar, Tabs } from "keep-react";
+import { BiLogoGmail } from "react-icons/bi";
+import { Avatar, Tabs, Tooltip } from "keep-react";
+import { FaGithub, FaLink, FaLinkedin } from "react-icons/fa";
 import React, { useContext, useEffect, useState } from "react";
 import { SiAngular, SiJavascript, SiReact, SiVuedotjs } from "react-icons/si";
 import { IoClose } from "react-icons/io5";
 import UpdateProfile from "../UpdateProfile/UpdateProfile";
+import { useUserFindNameQuery } from "@/Redux/AsyncThunk/user";
+import Link from "next/link";
 const ProfileComp = () => {
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
+  const email = user?.email;
 
-  let [isOpen, setIsOpen] = useState(true);
+  const { data, isLoading } = useUserFindNameQuery(`${user?.email}`, {
+    refetchOnReconnect: true,
+  });
 
-  // The empty dependency array ensures that the effect runs only once on mount
-  console.log(user);
+  const userMain = data?.data.filter((ele: any) => ele.email === email);
+  console.log(userMain);
+  let [isOpen, setIsOpen] = useState(false);
+
   return (
     <>
       <div className="relative max-w-full w-full lg:max-w-2xl my-10 lg:px-10 ">
@@ -25,10 +34,10 @@ const ProfileComp = () => {
               bg-gradient-to-tr text-clip bg-clip-text text-transparent from-fuchsia-500 to-violet-500
               drop-shadow-2xl"
               >
-                Mahamudul hasan Miyad
+                {userMain?.map((ele: any) => ele.name)}
               </h1>
               <p className="text-xs sm:text-sm text-gray-500 lg:text-lg dark:text-white/80">
-                {user?.email}
+                {userMain?.map((ele: any) => ele.name)}
                 <span className="drop-shadow-2xl rounded-md font-light lg:leading-loose inline-block lg:px-1 text-xs text-white bg-gradient-to-br from-purple-500 to-indigo-400 px-2">
                   .codeTalkies
                 </span>{" "}
@@ -53,11 +62,69 @@ const ProfileComp = () => {
                 </span>{" "}
                 <span className="text-sm">Follower</span>
               </div>
-              <div>hello</div>
+              <div className="flex justify-evenly items-center">
+                <Link href={`mailto:${userMain?.map((ele: any) => ele.email)}`}>
+                  <Tooltip
+                    content="Gmail"
+                    animation="duration-100"
+                    style="light"
+                    trigger="hover"
+                    placement="bottom-end"
+                  >
+                    <BiLogoGmail
+                      className={`mt-4 text-lg md:text-2xl lg:text-3xl text-fuchsia-600 `}
+                    />
+                  </Tooltip>
+                </Link>
+                <Link href={`${userMain?.map((ele: any) => ele?.portfolio)}`}>
+                  <Tooltip
+                    content="Website"
+                    animation="duration-100"
+                    trigger="hover"
+                    placement="bottom-end"
+                    style="dark"
+                  >
+                    <FaLink
+                      className={`mt-4 text-lg md:text-2xl lg:text-3xl mx-2 text-violet-600`}
+                    />
+                  </Tooltip>
+                </Link>
+                <Link href={`${userMain?.map((ele: any) => ele?.github)}`}>
+                  <Tooltip
+                    content="GitHub"
+                    animation="duration-100"
+                    trigger="hover"
+                    placement="bottom-end"
+                    style="dark"
+                  >
+                    <FaGithub
+                      className={`mt-4 text-lg md:text-2xl lg:text-3xl mx-2 `}
+                    />
+                  </Tooltip>
+                </Link>
+                <Link href={`${userMain?.map((ele: any) => ele?.linkedin)}`}>
+                  <Tooltip
+                    content="Linkedin"
+                    animation="duration-100"
+                    trigger="hover"
+                    placement="bottom-end"
+                    style="dark"
+                  >
+                    <FaLinkedin
+                      className={`mt-4 text-lg md:text-2xl lg:text-3xl mx-2 text-sky-500 `}
+                    />
+                  </Tooltip>
+                </Link>
+              </div>
             </div>
             <div className=" dark:text-white text-neutral-600">
-              <span className="text-sm sm:text-xl lg:text-2xl">
-                Front End Developer
+              <span className="text-sm sm:text-xl lg:text-2xl font-semibold">
+                {`${userMain?.map((ele: any) => ele.profession)}` === "backend"
+                  ? "Backend Developer"
+                  : `${userMain?.map((ele: any) => ele.profession)}` ===
+                    "frontend"
+                  ? "Frontend Developer"
+                  : "FullStack  Developer"}
               </span>
               <div className="flex justify-around items-center gap-4">
                 <span>

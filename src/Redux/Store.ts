@@ -1,12 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import themeSlice from "./DarkTheme/ThemeSlice";
 import utilSilcer from "./Utils/utilSilcer";
+import { userApi } from "./AsyncThunk/user";
 
 export const store = configureStore({
   reducer: {
     theme: themeSlice,
     utils: utilSilcer,
+    [userApi.reducerPath]: userApi.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(userApi.middleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

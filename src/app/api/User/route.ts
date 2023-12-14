@@ -5,8 +5,11 @@ import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 export const GET = async (req: Request, res: Response) => {
-  dbConfig();
-  return NextResponse.json({ massage: "success" });
+  await dbConfig();
+
+  const users = await RegisterModel.find({});
+
+  return NextResponse.json({ massage: "success", data: users });
 };
 export const POST = async (req: Request, res: Response) => {
   await dbConfig();

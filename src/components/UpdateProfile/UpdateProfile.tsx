@@ -1,5 +1,6 @@
 import { AuthContext } from "@/Provider/ContextApi";
-import { ShoppingCart } from "lucide-react";
+import axios from "axios";
+
 import React, { useContext, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
@@ -45,10 +46,9 @@ const UpdateProfile = () => {
     reset,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const update = {
       name: data.name,
-      email: data.email,
       bio: data.bio,
       address: data.address,
       phone: data.phone,
@@ -59,8 +59,18 @@ const UpdateProfile = () => {
       portfolio: data.portfolio,
       skill: skill,
     };
-    console.log(update);
-    reset();
+    const res = await axios.post(`/api/User/update`, {
+      data: update,
+      email: user?.email,
+    });
+
+    if (res.data.data.acknowledged) {
+      toast.success("Successfully updated Your Document");
+      reset();
+    } else {
+      toast.error(res.data.message);
+      return;
+    }
   };
   return (
     <div className="w-full px-2 sm:px-10 mb-4  h-full overflow-y-auto">
@@ -83,7 +93,7 @@ const UpdateProfile = () => {
               type="text"
               placeholder="Enter your Full Name"
               id="fullname"
-              {...register("name", { required: true })}
+              {...register("name")}
             />
           </div>
           <div className="w-full">
@@ -107,24 +117,6 @@ const UpdateProfile = () => {
             <div className="w-full">
               <label
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                htmlFor="email"
-              >
-                Email Address
-              </label>
-              <input
-                className="flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                type="email"
-                placeholder="Enter your email"
-                id="email"
-                {...register("email", { required: true })}
-              />
-            </div>
-          </div>
-
-          <div className="col-span-2 grid">
-            <div className="w-full">
-              <label
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 htmlFor="bio"
               >
                 Bio
@@ -136,7 +128,7 @@ const UpdateProfile = () => {
                 cols={4}
                 rows={3}
                 maxLength={100}
-                {...register("bio", { required: true })}
+                {...register("bio")}
               />
             </div>
           </div>
@@ -153,7 +145,7 @@ const UpdateProfile = () => {
                 type="text"
                 placeholder="Enter your Address"
                 id="address"
-                {...register("address", { required: true })}
+                {...register("address")}
               />
             </div>
           </div>
@@ -169,7 +161,7 @@ const UpdateProfile = () => {
               type="text"
               placeholder="Enter your Phone Number"
               id="phone"
-              {...register("phone", { required: true })}
+              {...register("phone")}
             />
           </div>
           <div className="w-full">
@@ -184,7 +176,7 @@ const UpdateProfile = () => {
               type="text"
               placeholder="Write Your Github URL "
               id="phone"
-              {...register("github", { required: true })}
+              {...register("github")}
             />
           </div>
           <div className="w-full">
@@ -199,7 +191,7 @@ const UpdateProfile = () => {
               type="text"
               placeholder="Write Your Github URL "
               id="phone"
-              {...register("linkedin", { required: true })}
+              {...register("linkedin")}
             />
           </div>
           <div className="w-full">
@@ -214,7 +206,7 @@ const UpdateProfile = () => {
               type="text"
               placeholder="ProtFolio Website  "
               id="phone"
-              {...register("portfolio", { required: true })}
+              {...register("portfolio")}
             />
           </div>
           <div className="w-full">
