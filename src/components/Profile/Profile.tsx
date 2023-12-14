@@ -131,7 +131,7 @@ const ProfileComp = () => {
             className="fixed inset-0 flex w-screen items-center justify-center p-4 h-auto backdrop-blur-lg bg-black/30"
             aria-hidden="true"
           >
-            <Dialog.Panel className="w-full h-auto max-w-2xl border border-gray-600 dark:border-purple-600 bg-white dark:bg-slate-950 shadow-2xl shadow-purple-500/20 p-4  rounded-xl ">
+            <Dialog.Panel className="w-full border-2 border-violet-500 max-w-lg dark:border-purple-600 bg-white dark:bg-slate-950 shadow-2xl shadow-purple-500/20  rounded-xl ">
               <div className="flex justify-end p-3">
                 <IoClose
                   size={30}
@@ -139,14 +139,8 @@ const ProfileComp = () => {
                   onClick={() => setIsOpen(false)}
                 />
               </div>
-              <Dialog.Title
-                className={"font-bold text-2xl text-center text-purple-500"}
-              >
-                {" "}
-                Edit Your Profile{" "}
-              </Dialog.Title>
 
-              <div className="mb-6 mt-4">
+              <div className="my-2 w-full flex-1">
                 <UpdateProfile />
               </div>
             </Dialog.Panel>

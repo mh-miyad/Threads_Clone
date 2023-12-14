@@ -14,6 +14,38 @@ const registerSchema = new Schema(
       require: [true, "Password is required"],
       type: "string",
     },
+    bio: {
+      type: String,
+    },
+    address: {
+      type: String,
+    },
+    phone: {
+      type: String,
+    },
+    profession: {
+      type: String,
+    },
+    image: {
+      type: String,
+    },
+
+    github: {
+      type: String,
+    },
+    linkedin: {
+      type: String,
+    },
+    portfolio: {
+      type: String,
+    },
+    skill: [
+      {
+        type: String,
+      },
+    ],
+    post: [{ type: Schema.Types.ObjectId, ref: "Post" }],
+    comment: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   },
   {
     timestamps: true,
