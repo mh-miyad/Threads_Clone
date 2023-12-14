@@ -42,11 +42,28 @@ const UpdateProfile = () => {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data, skill);
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const update = {
+      name: data.name,
+      email: data.email,
+      bio: data.bio,
+      address: data.address,
+      phone: data.phone,
+      profession: data.profession,
+      image: data.image,
+      github: data.github,
+      linkedin: data.linkedin,
+      portfolio: data.portfolio,
+      skill: skill,
+    };
+    console.log(update);
+    reset();
+  };
   return (
-    <div className="w-full px-2 sm:px-10 mb-4  ">
+    <div className="w-full px-2 sm:px-10 mb-4  h-full overflow-y-auto">
       <div className=" rounded-xl bg-gray-100 dark:bg-slate-900 dark:text-white  text-black p-4 shadow">
         <p className="text-sm font-bold text-gray-900">Personal Info</p>
         <form
@@ -224,11 +241,11 @@ const UpdateProfile = () => {
               </button>
             </div>
           </div>
-          <div className="w-full">
+          <div className="w-full flex flex-wrap-reverse ">
             {skill.map((skill, index) => (
               <div
                 key={index}
-                className="flex items-center  gap-1  justify-between  rounded-md p-2 text-[20px] font-semibold w-full scale-50 border border-black/30 uppercase bg-white "
+                className="flex px-4 justify-between rounded-md p-2 text-[20px] font-semibold w-full scale-50 border border-black/30 uppercase bg-white text-black"
               >
                 <p className="">{skill}</p>
                 <button

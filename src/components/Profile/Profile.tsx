@@ -39,18 +39,21 @@ const ProfileComp = () => {
             </div>
           </div>
           <div className="flex justify-between items-center">
-            <div className=" dark:text-white text-neutral-600 flex gap-2 items-center">
-              <span className="text-black/70 dark:text-white font-extrabold text-sm">
-                {1200}
-                {1200 >= 0 && 121 <= 999
-                  ? ""
-                  : 1200 >= 1000 && 121 <= 999999
-                  ? "k"
-                  : 1200 >= 1000000 && 121 <= 999999999
-                  ? "M"
-                  : "B"}
-              </span>{" "}
-              <span className="text-sm">Follower</span>
+            <div>
+              <div className=" dark:text-white text-neutral-600 flex gap-2 items-center">
+                <span className="text-black/70 dark:text-white font-extrabold text-sm">
+                  {1200}
+                  {1200 >= 0 && 121 <= 999
+                    ? ""
+                    : 1200 >= 1000 && 121 <= 999999
+                    ? "k"
+                    : 1200 >= 1000000 && 121 <= 999999999
+                    ? "M"
+                    : "B"}
+                </span>{" "}
+                <span className="text-sm">Follower</span>
+              </div>
+              <div>hello</div>
             </div>
             <div className=" dark:text-white text-neutral-600">
               <span className="text-sm sm:text-xl lg:text-2xl">
@@ -120,7 +123,7 @@ const ProfileComp = () => {
       <div>
         <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
           <div
-            className="fixed inset-0 flex justify-center items-center  p-4 backdrop-blur-lg bg-black/30"
+            className=" left-0 top-0 w-full h-[100vh] absolute flex overflow-auto justify-center items-center  p-4 backdrop-blur-lg bg-black/30 scroll-smooth transition-all delay-150 duration-200 ease-in-out"
             aria-hidden="true"
           >
             <Dialog.Panel className="w-full border-2 border-violet-500 max-w-xl md:max-w-lg dark:border-purple-600 bg-white dark:bg-slate-950 shadow-2xl shadow-purple-500/20  rounded-xl scale-75 md:scale-90 ">
