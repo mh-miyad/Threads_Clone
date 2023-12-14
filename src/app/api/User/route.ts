@@ -4,11 +4,12 @@ import dbConfig from "@/Database/dbConfig";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-dbConfig();
 export const GET = async (req: Request, res: Response) => {
+  dbConfig();
   return NextResponse.json({ massage: "success" });
 };
 export const POST = async (req: Request, res: Response) => {
+  await dbConfig();
   const { email, password } = await req.json();
   const cloneMail = await RegisterModel.findOne({
     email: email,
