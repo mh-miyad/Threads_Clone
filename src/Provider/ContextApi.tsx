@@ -4,15 +4,16 @@ import { onAuthStateChanged } from "firebase/auth";
 import React, { createContext, useEffect, useState } from "react";
 interface User {
   user: object | null;
-  setUser: any;
+  setUser: React.Dispatch<React.SetStateAction<object | null>>;
   loading: boolean;
-  setLoading: any;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
 export const AuthContext = createContext<User>({
-  user: null,
-  setUser: undefined,
-  loading: false,
-  setLoading: undefined,
+  user: {},
+  setUser: () => {},
+  loading: true,
+  setLoading: () => {},
 });
 
 const ContextApi = ({ children }: { children: React.ReactNode }) => {
