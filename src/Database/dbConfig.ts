@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const dbConfig = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URL!, {
+    await mongoose.connect(`${process.env.MONGO_URL}`, {
       dbName: "threads_Clone",
     });
     console.log("database connected");
