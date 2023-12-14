@@ -14,10 +14,7 @@ type Inputs = {
   password: string;
 };
 const RegisterPage = () => {
-  const url =
-    process.env.NODE_ENV === "production"
-      ? "https://coditalk.vercel.app/api/User/register"
-      : "/api/User/register";
+  const url = "/api/User/register";
   const router = useRouter();
   // const { login } = useContext(AuthContext);
   const {

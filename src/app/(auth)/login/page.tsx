@@ -12,10 +12,7 @@ type Inputs = {
   password: string;
 };
 const LoginPage = () => {
-  const url =
-    process.env.NODE_ENV === "production"
-      ? "https://coditalk.vercel.app/api/User"
-      : "/api/User";
+  const url = "/api/User";
   const router = useRouter();
   const {
     register,
