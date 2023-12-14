@@ -5,6 +5,9 @@ import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 dbConfig();
+export const GET = async (req: Request, res: Response) => {
+  return NextResponse.json({ massage: "success" });
+};
 export const POST = async (req: Request, res: Response) => {
   const { email, password } = await req.json();
   const cloneMail = await RegisterModel.findOne({
