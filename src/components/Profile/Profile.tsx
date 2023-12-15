@@ -4,30 +4,58 @@ import { Dialog } from "@headlessui/react";
 import { BiLogoGmail } from "react-icons/bi";
 import { Avatar, Tabs, Tooltip } from "keep-react";
 import { FaGithub, FaLink, FaLinkedin } from "react-icons/fa";
-import React, { useContext, useEffect, useState } from "react";
+import { Upload } from "keep-react";
+import React, { useContext, useState } from "react";
 import { SiAngular, SiJavascript, SiReact, SiVuedotjs } from "react-icons/si";
 import { IoClose } from "react-icons/io5";
 import UpdateProfile from "../UpdateProfile/UpdateProfile";
 import { useUserFindNameQuery } from "@/Redux/AsyncThunk/user";
 import Link from "next/link";
+
+import { Cloudinary, Configuration } from "cloudinary-core";
+import axios from "axios";
 const ProfileComp = () => {
+  const cloudinaryCore = new Cloudinary({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
+
   const { user, loading } = useContext(AuthContext);
   const email = user?.email;
 
   const { data, isLoading } = useUserFindNameQuery(`${user?.email}`, {
     refetchOnReconnect: true,
   });
+  const [open, setOpen] = useState(false);
 
   const userMain = data?.data.filter((ele: any) => ele.email === email);
-  console.log(userMain);
-  let [isOpen, setIsOpen] = useState(false);
 
+  let [isOpen, setIsOpen] = useState(false);
+  const [fileName, setFileName] = useState("");
+  const handleFileChange = async (event: any) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      setFileName(file.name);
+      axios
+        .post("/api/upload", {
+          file: file,
+        })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
   return (
     <>
-      <div className="relative max-w-full w-full lg:max-w-2xl my-10 lg:px-10 ">
+      <div className="relative max-w-full w-full lg:max-w-2xl mt-10 mb-14 lg:px-10 top-10 ">
         {/* This is the main div that contains all the content */}
         <div>
-          <div className="flex justify-between items-center mb-5">
+          <div className="flex justify-between items-center mb-5 mt-10 ">
             <div>
               <h1
                 className="text-2xl lg:text-3xl font-semibold text-gray-700 
@@ -44,7 +72,26 @@ const ProfileComp = () => {
               </p>
             </div>
             <div className="">
-              <Avatar shape="circle" size="2xl" className="bg-indigo-500" />
+              <Avatar
+                shape="circle"
+                size="2xl"
+                className="bg-indigo-500 cursor-pointer "
+                onClick={() => setOpen(true)}
+              />
+              {open && (
+                <div
+                  className="absolute top-10 right-0 bg-black/10  dark:bg-white/5 rounded backdrop-blur-2xl scale-[.7]  w-full "
+                  aria-hidden="true"
+                >
+                  <Upload
+                    id="upload"
+                    file={fileName}
+                    fileType="image/*"
+                    onFileChange={handleFileChange}
+                    uploadTime="2 minutes"
+                  />
+                </div>
+              )}
             </div>
           </div>
           <div className="flex justify-between items-center">
