@@ -12,13 +12,14 @@ import { usePathname, useRouter } from "next/navigation";
 import DarkBtn from "../DarkMood/DarkBtn";
 import { useDispatch, useSelector } from "react-redux";
 import { setModal } from "@/Redux/Utils/utilSilcer";
-import { CiMenuKebab } from "react-icons/ci";
+
 import Modal from "../Modal/Modal";
 import { AuthContext } from "@/Provider/ContextApi";
 import { RootState } from "@/Redux/Store";
 import { logout } from "@/firebase/firebase.main";
 import Cookie from "js-cookie";
 import toast from "react-hot-toast";
+import { Avatar, Dropdown, Spinner } from "keep-react";
 const Navbar = () => {
   const router = useRouter();
   const path = usePathname();
@@ -27,7 +28,7 @@ const Navbar = () => {
   const { user, loading, setLoading } = useContext(AuthContext);
   const [openMenu, setOpenMenu] = useState(false);
   const isDark = useSelector((state: RootState) => state.theme.isDark);
-
+  const [showMenu, setShowMenu] = useState(false);
   return (
     <>
       {path === "/login" || path === "/register" ? (
@@ -129,10 +130,40 @@ const Navbar = () => {
               </div>
               <div className="hidden md:block">
                 {loading ? (
-                  <> Login...</>
+                  <>
+                    <Spinner color="purple" size="lg" />
+                  </>
                 ) : (
                   <>
-                    <CiMenuKebab size={30} className={`cursor-pointer`} />
+                    <button
+                      className="relative"
+                      onClick={() => setShowMenu(!showMenu)}
+                    >
+                      <Avatar
+                        shape="circle"
+                        size="lg"
+                        img="https://as2.ftcdn.net/v2/jpg/05/76/65/21/1000_F_576652189_WK1JiTOwjKCFIJDJJLI1Q6RtwSfpgspu.jpg"
+                        className="ring-2 ring-indigo-500 ring-offset-1 dark:ring-violet-600 scale-75 hover:scale-100 transition-all ease-linear duration-200"
+                      />
+                      <div className="sr-only">ss</div>
+                    </button>
+                    <div>
+                      {showMenu && (
+                        <div className="border px-3 absolute right-12 top-16 z-50 dark:bg-slate-950/80 backdrop-blur-xl rounded-lg text-black dark:text-white bg-white/70">
+                          <Dropdown.Item
+                            className="scale-90 hover:scale-100 transition-all ease-linear duration-200"
+                            onClick={async () => {
+                              logout();
+                              await Cookie.remove("token");
+                              router.push("/login");
+                              toast.success("Logout Successfully");
+                            }}
+                          >
+                            Sign out
+                          </Dropdown.Item>
+                        </div>
+                      )}
+                    </div>
                   </>
                 )}
               </div>
