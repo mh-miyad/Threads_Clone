@@ -5,7 +5,7 @@ import { IoCreateOutline } from "react-icons/io5";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { LuSearchCode } from "react-icons/lu";
 import { FaRegUser } from "react-icons/fa";
-import logo from "../../../public/CodiTalk.svg";
+import logo from "../../../public/C.svg";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -43,7 +43,7 @@ const Navbar = () => {
                   <Image
                     src={logo}
                     alt="Logo"
-                    className="cursor-pointer bg-gray-400/40 p-1  w-12 h-12 rounded-sm dark:bg-gradient-to-br from-indigo-400 to-fuchsia-400/80 dark:rounded-full "
+                    className="cursor-pointer  p-1  w-12 h-12  "
                   />
                 </Link>
               </div>
