@@ -1,12 +1,17 @@
+// utils/multer.js
+
 import multer from "multer";
+
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/"); // Replace "uploads/" with your desired location
+  destination: function (req, file, cb) {
+    cb(null, "uploads/");
   },
   filename: (req, file, cb) => {
-    const uniqueName = Date.now() + "-" + file.originalname;
-    cb(null, uniqueName);
+    // Generate unique filename
+    cb(null, `${Date.now()}-${file.originalname}`);
   },
 });
 
-export const upload = multer({ storage });
+const upload = multer({ storage });
+
+export default upload;

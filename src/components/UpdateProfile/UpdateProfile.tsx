@@ -65,6 +65,7 @@ const UpdateProfile = () => {
     });
 
     if (res.data.data.acknowledged) {
+      console.log(res.data.data);
       toast.success("Successfully updated Your Document");
       reset();
     } else {

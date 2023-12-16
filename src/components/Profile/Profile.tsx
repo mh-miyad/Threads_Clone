@@ -5,45 +5,57 @@ import { BiLogoGmail } from "react-icons/bi";
 import { Avatar, Tabs, Tooltip } from "keep-react";
 import { FaGithub, FaLink, FaLinkedin } from "react-icons/fa";
 import { Upload } from "keep-react";
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { SiAngular, SiJavascript, SiReact, SiVuedotjs } from "react-icons/si";
 import { IoClose } from "react-icons/io5";
 import UpdateProfile from "../UpdateProfile/UpdateProfile";
 import { useUserFindNameQuery } from "@/Redux/AsyncThunk/user";
 import Link from "next/link";
-
-import { Cloudinary, Configuration } from "cloudinary-core";
 import axios from "axios";
+import type { PutBlobResult } from "@vercel/blob";
+import toast from "react-hot-toast";
 const ProfileComp = () => {
-  const cloudinaryCore = new Cloudinary({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-  });
-
+  const [blob, setBlob] = useState<PutBlobResult | null>(null);
   const { user, loading } = useContext(AuthContext);
   const email = user?.email;
-
+  const [isLoading1, setIsLoading1] = useState(true);
   const { data, isLoading } = useUserFindNameQuery(`${user?.email}`, {
     refetchOnReconnect: true,
   });
   const [open, setOpen] = useState(false);
-
+  const [image, setImage] = useState("");
   const userMain = data?.data.filter((ele: any) => ele.email === email);
-
+  console.log(userMain?.map((ele: any) => ele.image));
   let [isOpen, setIsOpen] = useState(false);
   const [fileName, setFileName] = useState("");
   const handleFileChange = async (event: any) => {
+    event.preventDefault();
     const file = event.target.files[0];
 
     if (file) {
       setFileName(file.name);
+      setIsLoading1(true);
       axios
-        .post("/api/upload", {
-          file: file,
-        })
+        .post(`/api/upload?filename=${file.name}`, file)
         .then((res) => {
-          console.log(res.data);
+          if (res.data.url) {
+            toast.success("Image uploaded successfully");
+            setImage(res.data.url);
+            axios
+              .post("/api/User/image", {
+                image: res.data.url,
+                email: user?._id,
+              })
+              .then((res) => {
+                if (res.data.data.acknowledged) {
+                  toast.success("Image uploaded successfully");
+                  setOpen(false);
+                  setIsLoading1(false);
+                }
+              });
+          } else {
+            toast.error("Something went wrong");
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -72,12 +84,21 @@ const ProfileComp = () => {
               </p>
             </div>
             <div className="">
-              <Avatar
-                shape="circle"
-                size="2xl"
-                className="bg-indigo-500 cursor-pointer "
-                onClick={() => setOpen(true)}
-              />
+              {isLoading ? (
+                <Avatar
+                  shape="circle"
+                  size="2xl"
+                  className="bg-indigo-500 cursor-pointer  animate-pulse"
+                />
+              ) : (
+                <Avatar
+                  shape="circle"
+                  size="2xl"
+                  img={`${userMain?.map((ele: any) => ele.image)}` || image}
+                  className="bg-indigo-500 cursor-pointer "
+                  onClick={() => setOpen(true)}
+                />
+              )}
               {open && (
                 <div
                   className="absolute top-10 right-0 bg-black/10  dark:bg-white/5 rounded backdrop-blur-2xl scale-[.7]  w-full "
