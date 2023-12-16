@@ -7,6 +7,8 @@ const nextConfig = {
       allowedOrigins: [
         "https://coditalk.vercel.app/",
         "*https://coditalk.vercel.app/",
+        "https://threds-clone.vercel.app/",
+        "*https://threds-clone.vercel.app/",
         "http://localhost:3000/",
       ],
     },
