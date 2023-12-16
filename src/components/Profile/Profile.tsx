@@ -25,7 +25,7 @@ const ProfileComp = () => {
   const [open, setOpen] = useState(false);
   const [image, setImage] = useState("");
   const userMain = data?.data.filter((ele: any) => ele.email === email);
-  console.log(userMain?.map((ele: any) => ele.image));
+
   let [isOpen, setIsOpen] = useState(false);
   const [fileName, setFileName] = useState("");
   const handleFileChange = async (event: any) => {
@@ -76,7 +76,7 @@ const ProfileComp = () => {
               >
                 {userMain?.map((ele: any) => ele.name)}
               </h1>
-              <p className="text-xs sm:text-sm text-gray-500 lg:text-lg dark:text-white/80">
+              <p className="text-xs lowercase sm:text-sm text-gray-500 lg:text-lg dark:text-white/80">
                 {userMain?.map((ele: any) => ele.name)}
                 <span className="drop-shadow-2xl rounded-md font-light lg:leading-loose inline-block lg:px-1 text-xs text-white bg-gradient-to-br from-purple-500 to-indigo-400 px-2">
                   .codeTalkies
