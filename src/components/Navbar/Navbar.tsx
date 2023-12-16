@@ -20,12 +20,17 @@ import { logout } from "@/firebase/firebase.main";
 import Cookie from "js-cookie";
 import toast from "react-hot-toast";
 import { Avatar, Dropdown, Spinner } from "keep-react";
+import { useUserFindNameQuery } from "@/Redux/AsyncThunk/user";
 const Navbar = () => {
   const router = useRouter();
   const path = usePathname();
   // const isOpen = useSelector((state: RootState) => state.utils.isOpen);
   const dispatch = useDispatch();
   const { user, loading, setLoading } = useContext(AuthContext);
+  const { data, isLoading } = useUserFindNameQuery(`${user?.email}`, {
+    refetchOnReconnect: true,
+  });
+  const userMain = data?.data.filter((ele: any) => ele.email === user?.email);
   const [openMenu, setOpenMenu] = useState(false);
   const isDark = useSelector((state: RootState) => state.theme.isDark);
   const [showMenu, setShowMenu] = useState(false);
@@ -142,7 +147,7 @@ const Navbar = () => {
                       <Avatar
                         shape="circle"
                         size="lg"
-                        img="https://as2.ftcdn.net/v2/jpg/05/76/65/21/1000_F_576652189_WK1JiTOwjKCFIJDJJLI1Q6RtwSfpgspu.jpg"
+                        img={`${userMain?.map((ele: any) => ele.image)}`}
                         className="ring-2 ring-indigo-500 ring-offset-1 dark:ring-violet-600 scale-75 hover:scale-100 transition-all ease-linear duration-200"
                       />
                       <div className="sr-only">ss</div>
