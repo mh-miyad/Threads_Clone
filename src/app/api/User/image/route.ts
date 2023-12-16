@@ -7,13 +7,15 @@ export const POST = async (req: Request, res: Response) => {
   await dbConfig();
   const { url, id } = await req.json();
   try {
+    console.log(url, id);
     const update = await RegisterModel.updateOne(
-      { _id: id },
+      { email: id },
       {
-        image: url,
-      }
+        $set: { image: url },
+      },
+      { upsert: true }
     );
-
+    console.log(update);
     return NextResponse.json({
       massage: "success",
       data: update,

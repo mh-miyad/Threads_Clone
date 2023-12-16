@@ -43,11 +43,11 @@ const ProfileComp = () => {
             setImage(res.data.url);
             axios
               .post("/api/User/image", {
-                image: res.data.url,
-                email: user?._id,
+                url: res.data.url,
+                id: user?.email,
               })
               .then((res) => {
-                if (res.data.data.acknowledged) {
+                if (res.data.data.modifiedCount > 0) {
                   toast.success("Image uploaded successfully");
                   setOpen(false);
                   setIsLoading1(false);
