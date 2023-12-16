@@ -71,8 +71,8 @@ const ProfileComp = () => {
             <div>
               <h1
                 className="text-2xl lg:text-3xl font-semibold text-gray-700 
-              bg-gradient-to-tr text-clip bg-clip-text text-transparent from-fuchsia-500 to-violet-500
-              drop-shadow-2xl"
+            bg-gradient-to-tr text-clip bg-clip-text text-transparent from-fuchsia-500 to-violet-500
+            drop-shadow-2xl"
               >
                 {userMain?.map((ele: any) => ele.name)}
               </h1>
