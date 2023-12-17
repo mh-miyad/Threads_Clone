@@ -8,21 +8,11 @@ import {
   AiOutlineRetweet,
 } from "react-icons/ai";
 import Moment from "moment";
-const CardComp = () => {
+const CardComp = ({ data }: { data: any }) => {
   const [love, setLove] = useState(false);
-  const data = {
-    avatarUrl: "/placeholder.svg",
-    content: "Content",
-    handle: "chamath",
-    username: "Chamath Palihapitiya",
-    showViewTweet: true,
-    post: "",
-    love: 0,
-    comment: 12,
-    share: 12,
-    time: Moment().format(" h:mm a , MMMM  YYYY"),
-  };
+  const formattedDate = Moment(data.createdAt).format("MMMM Do, YYYY h:mm A");
 
+  // console.log(data);
   return (
     <>
       <Card
@@ -48,9 +38,8 @@ const CardComp = () => {
               />
               <div className="ml-4">
                 <div className="uppercase tracking-wide text-sm text-black dark:text-white font-semibold">
-                  {data.username || "Chamath Palihapitiya"}
+                  {data?.name || "Chamath Palihapitiya"}
                 </div>
-                <div className="text-gray-400 dark:text-gray-300">@chamath</div>
               </div>
             </div>
             <p className="mt-4 text-gray-500 dark:text-gray-300">
@@ -64,17 +53,19 @@ const CardComp = () => {
               <div className="flex space-x-2 text-gray-400 dark:text-gray-300">
                 <div className="flex items-center ">
                   <AiOutlineHeart
-                    color={`${love ? "red" : "black"}`}
-                    className="h-6 w-6 text-red-500  cursor-pointer"
+                    color={`${love ? "red" : "pink"}`}
+                    className="h-6 w-6 text-red-500 dark:text-white  cursor-pointer"
                     onClick={() => {
                       setLove(!love);
                     }}
                   />
-                  <span className="ml-1 text-red-500">566</span>
+                  <span className="ml-1 text-red-500">{data.like.length}</span>
                 </div>
                 <div className="flex items-center">
                   <AiOutlineMessage className="h-6 w-6 text-green-500" />
-                  <span className="ml-1 text-green-500">{}</span>
+                  <span className="ml-1 text-green-500">
+                    {data.like.length}
+                  </span>
                 </div>
                 <div className="flex items-center">
                   <AiOutlineRetweet className="h-6 w-6 text-blue-500" />
@@ -82,7 +73,7 @@ const CardComp = () => {
                 </div>
               </div>
               <div className="text-gray-400 dark:text-gray-300 uppercase">
-                {data.time}
+                {formattedDate || Moment().fromNow(data.createdAt)}
               </div>
             </div>
           </div>

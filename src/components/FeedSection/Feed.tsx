@@ -1,16 +1,30 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import CardComp from "../Card/card";
 import { useUserPostQuery } from "@/Redux/AsyncThunk/userPost";
 
 const Feed = () => {
-  const { isLoading, data: posts, isError } = useUserPostQuery(1);
-  console.log(posts?.data);
+  const {
+    isLoading,
+    data: posts,
+    isError,
+    refetch,
+  } = useUserPostQuery(1, { pollingInterval: 10000 });
+
   return (
     <div>
-      <div>
-        <CardComp />
-      </div>
+      {isLoading ? (
+        <>loading....</>
+      ) : (
+        <>
+          {posts?.data?.length === 0 && (
+            <div className="text-center text-3xl text-gray-400">No Post</div>
+          )}
+          {posts?.data?.map((post: any) => {
+            return <CardComp key={post._id} data={post} />;
+          })}
+        </>
+      )}
     </div>
   );
 };

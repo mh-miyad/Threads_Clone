@@ -14,12 +14,17 @@ export const POST = async (req: Request, res: Response) => {
   const { email, post } = await req.json();
   const user = await RegisterModel.findOne({ email: email });
   const userId = await user?._id;
-
+  const name = await user?.name;
+  console.log(name);
   try {
     if (!userId) {
       return NextResponse.json({ massage: "user not found" });
     } else {
-      const userPost = new PostModel({ userId, post });
+      const userPost = new PostModel({
+        userId: userId,
+        name: name,
+        post: post,
+      });
       await userPost.save();
       console.log(userPost);
       return NextResponse.json({ massage: "success" });

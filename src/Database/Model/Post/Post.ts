@@ -6,6 +6,11 @@ const postSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "RegisterUser",
     },
+    name: {
+      type: String,
+      required: true,
+    },
+
     post: {
       type: String,
       required: true,

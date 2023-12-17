@@ -22,7 +22,6 @@ const PostTool = () => {
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     if (data.post == "") {
-      reset();
       setError("");
       toast.error("Please write something");
 
@@ -42,11 +41,11 @@ const PostTool = () => {
     axios
       .post("/api/Post", post)
       .then((res) => {
-        console.log(res.data);
-        setError("");
-        toast.success("post is created");
-
-        reset();
+        if (res.data.massage === "success") {
+          setError("");
+          toast.success("post is created");
+          reset();
+        }
       })
       .catch((err) => {
         console.log(err);
