@@ -33,7 +33,7 @@ const PostTool = () => {
   };
 
   return (
-    <div className="mt-5 mb-10">
+    <div className="mt-10 mb-5">
       <div>
         <form
           onSubmit={handleSubmit(onSubmit)}
