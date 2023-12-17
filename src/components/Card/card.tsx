@@ -16,13 +16,14 @@ const CardComp = ({ data }: { data: any }) => {
   const formattedDate = Moment(data.createdAt).format("MMMM Do, YYYY h:mm A");
 
   const { user } = useContext(AuthContext);
+
   const { data: userData, isLoading } = useUserFindNameQuery(`${user?.email}`, {
     refetchOnReconnect: true,
   });
   const userMain = userData?.data.filter(
     (ele: any) => ele.email === user?.email
   );
-  console.log(userMain[0].image);
+
   const likeCount = async () => {
     setLove(!love);
     const updateLike = love ? "false" : "true";
@@ -66,7 +67,7 @@ const CardComp = ({ data }: { data: any }) => {
                 alt="Profile picture"
                 className="rounded-full"
                 height="40"
-                src="/placeholder.svg"
+                src={data?.image}
                 style={{
                   aspectRatio: "40/40",
                   objectFit: "cover",

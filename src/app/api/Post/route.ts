@@ -13,9 +13,10 @@ export const GET = async (req: Request, res: Response) => {
 // ! here handle POST Request
 export const POST = async (req: Request, res: Response) => {
   await dbConfig();
-  const { email, post, like } = await req.json();
+  const { email, post } = await req.json();
   const user = await RegisterModel.findOne({ email: email });
   const userId = await user?._id;
+  const image = await user?.image;
   const name = await user?.name;
 
   try {
@@ -24,6 +25,7 @@ export const POST = async (req: Request, res: Response) => {
     } else {
       const userPost = new PostModel({
         userId: userId,
+        image: image,
         name: name,
         post: post,
       });
