@@ -15,7 +15,7 @@ export const POST = async (req: Request, res: Response) => {
   const user = await RegisterModel.findOne({ email: email });
   const userId = await user?._id;
   const name = await user?.name;
-  console.log(name);
+
   try {
     if (!userId) {
       return NextResponse.json({ massage: "user not found" });
