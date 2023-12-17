@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactNode, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
 import {
@@ -8,9 +8,46 @@ import {
   AiOutlineRetweet,
 } from "react-icons/ai";
 import Moment from "moment";
+import { AuthContext } from "@/Provider/ContextApi";
+import { useUserFindNameQuery } from "@/Redux/AsyncThunk/user";
+import axios from "axios";
 const CardComp = ({ data }: { data: any }) => {
   const [love, setLove] = useState(false);
   const formattedDate = Moment(data.createdAt).format("MMMM Do, YYYY h:mm A");
+
+  const { user } = useContext(AuthContext);
+  const { data: userData, isLoading } = useUserFindNameQuery(`${user?.email}`, {
+    refetchOnReconnect: true,
+  });
+  const userMain = userData?.data.filter(
+    (ele: any) => ele.email === user?.email
+  );
+  console.log(userMain[0].image);
+  const likeCount = async () => {
+    setLove(!love);
+    const updateLike = love ? "false" : "true";
+
+    try {
+      const response = await axios.put(
+        "/api/Post",
+        {
+          userId: userMain[0]._id,
+          postId: data._id,
+          like: updateLike,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const result = response.data;
+      // console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // console.log(data);
   return (
@@ -50,14 +87,12 @@ const CardComp = ({ data }: { data: any }) => {
             </p>
 
             <div className="flex text-xs justify-between items-center mt-2 ">
-              <div className="flex space-x-2 text-gray-400 dark:text-gray-300">
+              <div className="flex space-x-3 items-center text-gray-400 dark:text-gray-300">
                 <div className="flex items-center ">
                   <AiOutlineHeart
                     color={`${love ? "red" : "pink"}`}
                     className="h-6 w-6 text-red-500 dark:text-white  cursor-pointer"
-                    onClick={() => {
-                      setLove(!love);
-                    }}
+                    onClick={() => likeCount()}
                   />
                   <span className="ml-1 text-red-500">{data.like.length}</span>
                 </div>
@@ -67,10 +102,10 @@ const CardComp = ({ data }: { data: any }) => {
                     {data.like.length}
                   </span>
                 </div>
-                <div className="flex items-center">
+                {/* <div className="flex items-center">
                   <AiOutlineRetweet className="h-6 w-6 text-blue-500" />
                   <span className="ml-1 text-blue-500">487</span>
-                </div>
+                </div> */}
               </div>
               <div className="text-gray-400 dark:text-gray-300 uppercase">
                 {formattedDate || Moment().fromNow(data.createdAt)}

@@ -10,6 +10,9 @@ const Feed = () => {
     isError,
     refetch,
   } = useUserPostQuery(1, { pollingInterval: 10000 });
+  if (isError) {
+    return <div>Error:{isError}</div>;
+  }
 
   return (
     <div>

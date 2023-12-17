@@ -21,5 +21,20 @@ const postSchema = new Schema(
     timestamps: true,
   }
 );
+// Adding a Like
+postSchema.methods.addLike = function (userId: any) {
+  this.like.push(userId);
+  this.likesCount++;
+  return this.save();
+};
+
+// Removing a Like
+postSchema.methods.removeLike = function (userId: any) {
+  this.like = this.like.filter(
+    (id: any) => id.toString() !== userId.toString()
+  );
+  this.likesCount--;
+  return this.save();
+};
 const PostModel = mongoose.models?.Post || mongoose.model("Post", postSchema);
 export default PostModel;
