@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Raleway } from "next/font/google";
 import "./globals.css";
 import ReduxProvider from "@/Provider/ReduxProvider";
 import Container from "@/components/Container/Container";
@@ -7,7 +7,7 @@ import Navbar from "@/components/Navbar/Navbar";
 import Html from "@/components/Theme/Html";
 import ContextApi from "@/Provider/ContextApi";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Raleway({ subsets: ["cyrillic-ext"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
