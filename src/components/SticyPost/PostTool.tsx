@@ -1,14 +1,19 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Toaster, toast } from "react-hot-toast";
 import "./PostTool.css";
+import { AuthContext } from "@/Provider/ContextApi";
+import axios from "axios";
 type Inputs = {
   post: string;
 };
 
 const PostTool = () => {
   const [isError, setError] = useState("");
+  const { user } = useContext(AuthContext);
+  const userMail = user?.email;
+
   const {
     register,
     handleSubmit,
@@ -19,17 +24,33 @@ const PostTool = () => {
     if (data.post == "") {
       reset();
       setError("");
+      toast.error("Please write something");
+
       return;
     } else if (data.post.length >= 200) {
       toast.error(" max length is 200");
       reset();
+
       setError("");
       return;
     }
-    setError("");
-    toast.success("post is created");
-    console.log(data);
-    reset();
+    const post = {
+      email: userMail,
+      post: data.post,
+    };
+
+    axios
+      .post("/api/Post", post)
+      .then((res) => {
+        console.log(res.data);
+        setError("");
+        toast.success("post is created");
+
+        reset();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -78,10 +99,12 @@ const PostTool = () => {
                 )}
               </div>
               <div>
-                <input
+                <button
                   type="submit"
-                  className=" bg-violet-600 hover:bg-violet-700 text-white font-bold rounded-full shadow-lg dark:shadow-purple-500/50 drop-shadow-2xl shadow-violet-600/50 w-28 h-10 uppercase scale-100 active:scale-90 transition-all duration-200 ease-in-out cursor-pointer mx-auto mb-3"
-                />
+                  className=" disabled:bg-violet-50  disabled:cursor-not-allowed disabled:text-black bg-violet-600 hover:bg-violet-700 text-white font-bold rounded-full shadow-lg dark:shadow-purple-500/50 drop-shadow-2xl shadow-violet-600/50 w-28 h-10 uppercase scale-90 active:scale-75 transition-all duration-200 ease-in-out cursor-pointer mx-auto mb-3"
+                >
+                  POST
+                </button>
               </div>
             </div>
           </div>

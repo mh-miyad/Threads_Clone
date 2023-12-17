@@ -2,13 +2,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 // Define a service using a base URL and expected endpoints
-export const userApi = createApi({
-  reducerPath: "userApi",
+export const postApi = createApi({
+  reducerPath: "postApi",
   baseQuery: fetchBaseQuery({ baseUrl: "/api" }),
   endpoints: (builder) => ({
-    userFindName: builder.query({
+    userPost: builder.query({
       query: () => ({
-        url: `/User`, // Append email as query parameter
+        url: `/Post`, // Append email as query parameter
         method: "get",
       }),
     }),
@@ -17,4 +17,4 @@ export const userApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useUserFindNameQuery } = userApi;
+export const { useUserPostQuery } = postApi;

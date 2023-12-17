@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
 import {
@@ -8,7 +8,7 @@ import {
   AiOutlineRetweet,
 } from "react-icons/ai";
 import Moment from "moment";
-const CardComp: React.FC = () => {
+const CardComp = () => {
   const [love, setLove] = useState(false);
   const data = {
     avatarUrl: "/placeholder.svg",

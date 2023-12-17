@@ -5,6 +5,7 @@ import PostTool from "@/components/SticyPost/PostTool";
 import { useContext, useEffect } from "react";
 import Cookie from "js-cookie";
 import { useRouter } from "next/navigation";
+import Feed from "@/components/FeedSection/Feed";
 export default function Home() {
   const router = useRouter();
   const { user, loading } = useContext(AuthContext);
@@ -13,16 +14,12 @@ export default function Home() {
     if (!token) {
       return router.push("/login");
     }
-  }, [user]);
+  }, [user, router]);
   return (
     <>
       <PostTool />
-      <div className="flex justify-center flex-col items-center">
-        <CardComp />
-        <CardComp />
-        <CardComp />
-        <CardComp />
-        <CardComp />
+      <div className="flex justify-center max-w-lg mx-auto ">
+        <Feed />
       </div>
     </>
   );
