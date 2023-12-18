@@ -6,6 +6,10 @@ const registerSchema = new Schema(
       require: [true, "Name is required"],
       type: "string",
     },
+    userName: {
+      require: [true, "User Name is required"],
+      type: "string",
+    },
     email: {
       require: [true, "Email is required"],
       type: "string",
@@ -29,7 +33,6 @@ const registerSchema = new Schema(
     image: {
       type: String,
     },
-
     github: {
       type: String,
     },

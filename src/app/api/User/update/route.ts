@@ -15,6 +15,7 @@ export const POST = async (req: Request, res: Response) => {
       { _id: prevDocument?._id },
       {
         name: data.name,
+        userName: data.userName,
         bio: data.bio,
         address: data.address,
         phone: data.phone,
