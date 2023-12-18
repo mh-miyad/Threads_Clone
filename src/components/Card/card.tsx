@@ -76,7 +76,7 @@ const CardComp = ({ data }: { data: any }) => {
               />
               <div className="ml-4">
                 <div className="uppercase tracking-wide text-sm text-black dark:text-white font-semibold">
-                  {data?.name || "Chamath Palihapitiya"}
+                  {data?.name || "Mh-Miyad"}
                 </div>
               </div>
             </div>
