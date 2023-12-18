@@ -7,8 +7,7 @@ const registerSchema = new Schema(
       type: "string",
     },
     userName: {
-      require: [true, "User Name is required"],
-      type: "string",
+      type: String,
     },
     email: {
       require: [true, "Email is required"],
