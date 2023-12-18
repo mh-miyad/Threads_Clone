@@ -7,6 +7,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 interface Inputs {
   name: string;
+  userName: string;
   email: string;
   bio: string;
   address: string;
@@ -49,6 +50,7 @@ const UpdateProfile = () => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const update = {
       name: data.name,
+      userName: data.userName,
       bio: data.bio,
       address: data.address,
       phone: data.phone,
@@ -100,7 +102,22 @@ const UpdateProfile = () => {
           <div className="w-full">
             <label
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              htmlFor="fullname"
+              htmlFor="userName"
+            >
+              User Name
+            </label>
+            <input
+              className="flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+              type="text"
+              placeholder="Set Your User Name"
+              id="userName"
+              {...register("userName")}
+            />
+          </div>
+          <div className="w-full">
+            <label
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              htmlFor="profession"
             >
               Profession
             </label>
