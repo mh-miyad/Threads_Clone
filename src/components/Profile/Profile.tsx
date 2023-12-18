@@ -1,31 +1,41 @@
 "use client";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import Cookie from "js-cookie";
 import { AuthContext } from "@/Provider/ContextApi";
 import { Dialog } from "@headlessui/react";
 import { BiLogoGmail } from "react-icons/bi";
 import { Avatar, Tabs, Tooltip } from "keep-react";
 import { FaGithub, FaLink, FaLinkedin } from "react-icons/fa";
 import { Upload } from "keep-react";
-import React, { useContext, useRef, useState } from "react";
 import { SiAngular, SiJavascript, SiReact, SiVuedotjs } from "react-icons/si";
 import { IoClose } from "react-icons/io5";
 import UpdateProfile from "../UpdateProfile/UpdateProfile";
 import { useUserFindNameQuery } from "@/Redux/AsyncThunk/user";
 import Link from "next/link";
 import axios from "axios";
-import type { PutBlobResult } from "@vercel/blob";
 import toast from "react-hot-toast";
 import ProfileSkeleton from "./ProfileSkeleton";
+import { useRouter } from "next/navigation";
 const ProfileComp = () => {
-  const [blob, setBlob] = useState<PutBlobResult | null>(null);
   const { user, loading } = useContext(AuthContext);
   const email = user?.email;
   const [isLoading1, setIsLoading1] = useState(true);
   const { data, isLoading } = useUserFindNameQuery(`${user?.email}`, {
-    refetchOnReconnect: true,
+    refetchOnFocus: true,
+    pollingInterval: 5000,
   });
   const [open, setOpen] = useState(false);
   const [image, setImage] = useState("");
   const userMain = data?.data.filter((ele: any) => ele.email === email);
+
+  const userId = userMain?.map((ele: any) => ele._id);
+  useEffect(() => {
+    if (!userId) {
+      setIsLoading1(true);
+    } else {
+      setIsLoading1(false);
+    }
+  }, [userId, userMain, user]);
 
   let [isOpen, setIsOpen] = useState(false);
   const [fileName, setFileName] = useState("");
@@ -50,6 +60,7 @@ const ProfileComp = () => {
               .then((res) => {
                 if (res.data.data.modifiedCount > 0) {
                   toast.success("Image uploaded successfully");
+
                   setOpen(false);
                   setIsLoading1(false);
                 }
@@ -63,9 +74,16 @@ const ProfileComp = () => {
         });
     }
   };
+  const router = useRouter();
+  useEffect(() => {
+    const token = Cookie.get("token");
+    if (!token) {
+      return router.push("/login");
+    }
+  }, [user, router]);
   return (
     <>
-      {isLoading ? (
+      {loading && isLoading1 && isLoading ? (
         <>
           <ProfileSkeleton />
         </>
@@ -84,7 +102,7 @@ const ProfileComp = () => {
                     {userMain?.map((ele: any) => ele.name)}
                   </h1>
                   <p className="text-xs lowercase sm:text-sm text-gray-500 lg:text-lg dark:text-white/80">
-                    {userMain?.map((ele: any) => ele.name)}
+                    {userMain?.map((ele: any) => ele.userName) || "@username"}
                     <span className="drop-shadow-2xl rounded-md font-light lg:leading-loose inline-block lg:px-1 text-xs text-white bg-gradient-to-br from-purple-500 to-indigo-400 px-2">
                       .codeTalkies
                     </span>{" "}
@@ -290,7 +308,7 @@ const ProfileComp = () => {
               </div>
 
               <div className="flex justify-center w-full  ">
-                <UpdateProfile />
+                <UpdateProfile setIsOpen={setIsOpen} />
               </div>
             </Dialog.Panel>
           </div>

@@ -19,11 +19,11 @@ const CardComp = ({ data }: { data: any }) => {
 
   const { data: userData, isLoading } = useUserFindNameQuery(`${user?.email}`, {
     refetchOnReconnect: true,
+    pollingInterval: 10000,
   });
   const userMain = userData?.data.filter(
     (ele: any) => ele.email === user?.email
   );
-
   const likeCount = async () => {
     setLove(!love);
     const updateLike = love ? "false" : "true";
@@ -67,7 +67,7 @@ const CardComp = ({ data }: { data: any }) => {
                 alt="Profile picture"
                 className="rounded-full"
                 height="40"
-                src={data?.image}
+                src={data?.image || "https://i.pravatar.cc/300"}
                 style={{
                   aspectRatio: "40/40",
                   objectFit: "cover",

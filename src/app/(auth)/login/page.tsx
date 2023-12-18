@@ -39,7 +39,18 @@ const LoginPage = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.message);
+        if (err.message === "Firebase: Error (auth/user-not-found).") {
+          toast.error("User not found");
+        } else if (err.message === "Firebase: Error (auth/wrong-password).") {
+          toast.error("Wrong Password");
+        } else if (
+          err.message === "Firebase: Error (auth/invalid-credential)."
+        ) {
+          toast.error("email or password is invalid");
+        } else {
+          toast.error("Something went wrong");
+        }
       });
   };
   return (

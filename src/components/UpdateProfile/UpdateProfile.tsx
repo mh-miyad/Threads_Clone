@@ -19,7 +19,7 @@ interface Inputs {
   portfolio: string;
   skill: string[];
 }
-const UpdateProfile = () => {
+const UpdateProfile = ({ setIsOpen }: { setIsOpen: any }) => {
   const { user } = useContext(AuthContext);
   const [skill, setSkill] = useState<string[]>([]);
   const [newSkill, setNewSkill] = useState<string>("");
@@ -69,6 +69,7 @@ const UpdateProfile = () => {
     if (res.data.data.acknowledged) {
       console.log(res.data.data);
       toast.success("Successfully updated Your Document");
+      setIsOpen(false);
       reset();
     } else {
       toast.error(res.data.message);
