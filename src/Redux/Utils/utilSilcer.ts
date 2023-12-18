@@ -5,12 +5,10 @@ export const utilSlicer = createSlice({
   initialState: {
     isOpen: false,
     isImageLoaded: false,
-    image: {
-      imgUpdate: false,
-      data: {
-        img: null,
-        postID: null,
-      },
+    avatar: false,
+    data: {
+      img: null,
+      postID: null,
     },
   },
   reducers: {
@@ -23,17 +21,18 @@ export const utilSlicer = createSlice({
     ) => {
       state.isImageLoaded = action.payload.isImageLoaded;
     },
+    updateAvatar: (state, action: PayloadAction<{ avatar: boolean }>) => {
+      state.avatar = action.payload.avatar;
+    },
     updateImage: (
       state,
-      action: PayloadAction<{
-        image: { imgUpdate: boolean; data: { img: any; postID: any } };
-      }>
+      action: PayloadAction<{ data: { img: any; postID: any } }>
     ) => {
-      state.image.imgUpdate = action.payload.image.imgUpdate;
-      state.image.data = action.payload.image.data;
+      state.data = action.payload.data;
     },
   },
 });
 
-export const { setModal, setIsImageLoaded, updateImage } = utilSlicer.actions;
+export const { setModal, setIsImageLoaded, updateImage, updateAvatar } =
+  utilSlicer.actions;
 export default utilSlicer.reducer;

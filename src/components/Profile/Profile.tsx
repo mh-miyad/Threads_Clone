@@ -16,6 +16,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import ProfileSkeleton from "./ProfileSkeleton";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { updateAvatar } from "@/Redux/Utils/utilSilcer";
 const ProfileComp = () => {
   const { user, loading } = useContext(AuthContext);
   const email = user?.email;
@@ -37,7 +39,8 @@ const ProfileComp = () => {
     }
   }, [userId, userMain, user]);
 
-  let [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(false);
   const [fileName, setFileName] = useState("");
   const handleFileChange = async (event: any) => {
     event.preventDefault();
@@ -60,7 +63,7 @@ const ProfileComp = () => {
               .then((res) => {
                 if (res.data.data.modifiedCount > 0) {
                   toast.success("Image uploaded successfully");
-
+                  dispatch(updateAvatar({ avatar: true }));
                   setOpen(false);
                   setIsLoading1(false);
                 }

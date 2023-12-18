@@ -1,7 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CardComp from "../Card/card";
 import { useUserPostQuery } from "@/Redux/AsyncThunk/userPost";
+import { RootState } from "@/Redux/Store";
+import { useDispatch, useSelector } from "react-redux";
 
 const Feed = () => {
   const {
@@ -9,7 +11,8 @@ const Feed = () => {
     data: posts,
     isError,
     refetch,
-  } = useUserPostQuery(1, { pollingInterval: 10000 });
+  } = useUserPostQuery(1, { refetchOnFocus: false });
+
   if (isError) {
     return <div>Error:{isError}</div>;
   }
