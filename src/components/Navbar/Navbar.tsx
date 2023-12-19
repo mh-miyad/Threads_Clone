@@ -80,18 +80,7 @@ const Navbar = () => {
                       />
                     </Link>
                   </li>
-                  <li>
-                    <IoCreateOutline
-                      onClick={() => dispatch(setModal({ isOpen: true }))}
-                      size={45}
-                      className={`cursor-pointer text-slate-700 dark:text-gray-100 rounded-lg p-2  ${
-                        path === "/createPost"
-                          ? "bg-gradient-to-br from-indigo-400 to-fuchsia-400/80"
-                          : ""
-                      }  "
-  `}
-                    />
-                  </li>
+
                   <li>
                     <Link href={"/notification"}>
                       <TbHeartCode
@@ -173,7 +162,7 @@ const Navbar = () => {
                 )}
               </div>
             </nav>
-            <Modal />
+
             <>
               {openMenu && (
                 <>
