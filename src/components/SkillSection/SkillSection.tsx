@@ -24,10 +24,7 @@ const SkillSection: React.FC<SkillSectionProps> = ({ frontEndSkills }) => {
       return <SiHtml5 size="30" className="text-orange-500" />;
     } else if (lowerCaseSkill.includes("css")) {
       return <SiCss3 size="30" className="text-blue-500" />;
-    } else if (
-      lowerCaseSkill.includes("javascript") ||
-      lowerCaseSkill.includes("js")
-    ) {
+    } else if (lowerCaseSkill.includes("javascript")) {
       return <SiJavascript size="30" className="text-yellow-500 bg-black" />;
     } else if (lowerCaseSkill.includes("react")) {
       return <SiReact size="30" className="text-sky-400" />;
