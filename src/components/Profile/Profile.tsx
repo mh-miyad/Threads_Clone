@@ -1,13 +1,14 @@
 "use client";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import Cookie from "js-cookie";
+import { Caveat } from "next/font/google";
 import { AuthContext } from "@/Provider/ContextApi";
 import { Dialog } from "@headlessui/react";
 import { BiLogoGmail } from "react-icons/bi";
 import { Avatar, Tabs, Tooltip } from "keep-react";
 import { FaGithub, FaLink, FaLinkedin } from "react-icons/fa";
 import { Upload } from "keep-react";
-import { SiAngular, SiJavascript, SiReact, SiVuedotjs } from "react-icons/si";
+
 import { IoClose } from "react-icons/io5";
 import UpdateProfile from "../UpdateProfile/UpdateProfile";
 import { useUserFindNameQuery } from "@/Redux/AsyncThunk/user";
@@ -18,13 +19,14 @@ import ProfileSkeleton from "./ProfileSkeleton";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { updateAvatar } from "@/Redux/Utils/utilSilcer";
+import SkillSection from "../SkillSection/SkillSection";
+const inter = Caveat({ subsets: ["latin"], weight: "700" });
 const ProfileComp = () => {
   const { user, loading } = useContext(AuthContext);
   const email = user?.email;
   const [isLoading1, setIsLoading1] = useState(true);
   const { data, isLoading } = useUserFindNameQuery(`${user?.email}`, {
-    refetchOnFocus: true,
-    pollingInterval: 5000,
+    pollingInterval: 10000,
   });
   const [open, setOpen] = useState(false);
   const [image, setImage] = useState("");
@@ -107,7 +109,7 @@ const ProfileComp = () => {
                   <p className="text-xs lowercase sm:text-sm text-gray-500 lg:text-lg dark:text-white/80">
                     {userMain?.map((ele: any) => ele.userName) || "@username"}
                     <span className="drop-shadow-2xl rounded-md font-light lg:leading-loose inline-block lg:px-1 text-xs text-white bg-gradient-to-br from-purple-500 to-indigo-400 px-2">
-                      .codeTalkies
+                      <span className="font-extrabold mr-1">.</span>codeTalkies
                     </span>{" "}
                   </p>
                 </div>
@@ -145,8 +147,10 @@ const ProfileComp = () => {
               </div>
               <div className="flex justify-between items-center">
                 <div>
-                  <div className="flex gap-2 items-center">
-                    <p>{userMain?.map((ele: any) => ele.bio)}</p>
+                  <div className="flex gap-2 items-center text-xs md:text-xl break-words font-semibold text-gray-500">
+                    <p className={inter.className}>
+                      {userMain?.map((ele: any) => ele.bio)}
+                    </p>
                   </div>
                   <div className=" dark:text-white text-neutral-600 flex gap-2 items-center">
                     <span className="text-black/70 dark:text-white font-extrabold text-sm">
@@ -232,36 +236,9 @@ const ProfileComp = () => {
                       ? "Frontend Developer"
                       : "FullStack  Developer"}
                   </span>
-                  <div className="flex justify-around items-center gap-4">
-                    <span>
-                      <SiJavascript
-                        key={`javascript`}
-                        size="30"
-                        className="text-yellow-500 bg-black"
-                      />
-                    </span>
-                    <span>
-                      <SiReact
-                        key={`javascript`}
-                        size="30"
-                        className="text-sky-400"
-                      />
-                    </span>
-                    <span>
-                      <SiAngular
-                        key={`Angular`}
-                        size="30"
-                        className="text-red-600"
-                      />
-                    </span>
-                    <span>
-                      <SiVuedotjs
-                        key={`Angular`}
-                        size="30"
-                        className="text-green-600"
-                      />
-                    </span>
-                  </div>
+                  <SkillSection
+                    frontEndSkills={userMain?.map((ele: any) => ele.skill)}
+                  />
                 </div>
               </div>
             </div>
