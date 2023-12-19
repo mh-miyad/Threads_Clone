@@ -12,10 +12,7 @@ type Inputs = {
   email: string;
   password: string;
 };
-export const metadata: Metadata = {
-  title: "Login Page ",
-  description: "CodiTalk Login Page || Express Your Thoughts Page",
-};
+
 const LoginPage = () => {
   const url = "/api/User";
   const router = useRouter();

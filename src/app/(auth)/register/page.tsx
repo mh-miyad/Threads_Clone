@@ -14,10 +14,7 @@ type Inputs = {
   email: string;
   password: string;
 };
-export const metadata: Metadata = {
-  title: "Registration  Page ",
-  description: "CodiTalk Registration  Page || Express Your Thoughts Page",
-};
+
 const RegisterPage = () => {
   const url = "/api/User/register";
   const router = useRouter();
