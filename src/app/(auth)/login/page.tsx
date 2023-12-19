@@ -7,9 +7,14 @@ import React from "react";
 import axios from "axios";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
+import { Metadata } from "next";
 type Inputs = {
   email: string;
   password: string;
+};
+export const metadata: Metadata = {
+  title: "Login Page ",
+  description: "CodiTalk Login Page || Express Your Thoughts Page",
 };
 const LoginPage = () => {
   const url = "/api/User";

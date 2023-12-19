@@ -3,6 +3,7 @@ import { AuthContext } from "@/Provider/ContextApi";
 import DarkBtn from "@/components/DarkMood/DarkBtn";
 import { createUser } from "@/firebase/firebase.main";
 import axios from "axios";
+import { Metadata } from "next";
 import Link from "next/link";
 import { redirect, useRouter } from "next/navigation";
 import React, { useContext } from "react";
@@ -12,6 +13,10 @@ type Inputs = {
   name: string;
   email: string;
   password: string;
+};
+export const metadata: Metadata = {
+  title: "Registration  Page ",
+  description: "CodiTalk Registration  Page || Express Your Thoughts Page",
 };
 const RegisterPage = () => {
   const url = "/api/User/register";
