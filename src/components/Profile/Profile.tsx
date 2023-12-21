@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { updateAvatar } from "@/Redux/Utils/utilSilcer";
 import SkillSection from "../SkillSection/SkillSection";
+import PostSection from "../PostSection/PostSection";
 const inter = Caveat({ subsets: ["latin"], weight: "700" });
 const ProfileComp = () => {
   const { user, loading } = useContext(AuthContext);
@@ -247,7 +248,7 @@ const ProfileComp = () => {
         </>
       )}
 
-      <div className=" text-center">
+      <div className=" text-center space-y-5 overflow-hidden">
         <button
           className="w-full bg-gradient-to-br from-purple-500 to-indigo-400 text-white font-semibold py-2 px-4 rounded-md "
           onClick={() => setIsOpen(true)}
@@ -255,22 +256,7 @@ const ProfileComp = () => {
           {" "}
           Edit Profile
         </button>
-        <Tabs
-          aria-label="tabs"
-          style="underline"
-          borderPosition="bottom"
-          className="flex justify-between underline-offset-8"
-        >
-          <Tabs.Item className="" title="All Posts">
-            Post
-          </Tabs.Item>
-          <Tabs.Item className="" title="My CodeTalkies">
-            Dashboard content
-          </Tabs.Item>
-          <Tabs.Item className="" title="Project ShowCase">
-            Settings content
-          </Tabs.Item>
-        </Tabs>
+        <PostSection />
       </div>
       <div>
         <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
