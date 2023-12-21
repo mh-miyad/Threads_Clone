@@ -9,7 +9,14 @@ export const postApi = createApi({
     userPost: builder.query({
       query: () => ({
         url: `/Post`, // Append email as query parameter
-        method: "get",
+        method: "GET",
+      }),
+    }),
+    userAllPost: builder.mutation({
+      query: (email) => ({
+        url: `/Post/userPost`, // Append email as query parameter
+        method: "POST",
+        body: email,
       }),
     }),
   }),
@@ -17,4 +24,4 @@ export const postApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useUserPostQuery } = postApi;
+export const { useUserPostQuery, useUserAllPostMutation } = postApi;

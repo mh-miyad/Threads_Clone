@@ -11,6 +11,7 @@ import Moment from "moment";
 import { AuthContext } from "@/Provider/ContextApi";
 import { useUserFindNameQuery } from "@/Redux/AsyncThunk/user";
 import axios from "axios";
+import { HiHeart } from "react-icons/hi";
 const CardComp = ({ data }: { data: any }) => {
   const [love, setLove] = useState(false);
   const formattedDate = Moment(data.createdAt).format("MMMM Do, YYYY h:mm A");
@@ -90,9 +91,11 @@ const CardComp = ({ data }: { data: any }) => {
             <div className="flex text-xs justify-between items-center mt-2 ">
               <div className="flex space-x-3 items-center text-gray-400 dark:text-gray-300">
                 <div className="flex items-center ">
-                  <AiOutlineHeart
-                    color={`${love ? "red" : "pink"}`}
-                    className="h-6 w-6 text-red-500 dark:text-white  cursor-pointer"
+                  <HiHeart
+                    key={data._id}
+                    className={` h-6 w-6 ${
+                      love ? "text-red-500" : "text-gray-200 dark:text-white"
+                    } cursor-pointer`}
                     onClick={() => likeCount()}
                   />
                   <span className="ml-1 text-red-500">{data.like.length}</span>

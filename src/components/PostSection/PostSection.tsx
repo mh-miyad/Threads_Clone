@@ -1,8 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PostCard from "../Card/PostCard";
+import axios from "axios";
 
-const PostSection = () => {
+const PostSection = ({ email }: { email: string }) => {
   const [isTabs, setIsTabs] = useState(true);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const userFind = async () => {
+      axios.post("/api/Post/userPost", { email }).then((res) => {
+        setData(res.data.data);
+      });
+    };
+    userFind();
+  }, [email]);
   return (
     <>
       <div className="relative">
@@ -21,38 +31,9 @@ const PostSection = () => {
       {isTabs && (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
+            {data?.map((post, index) => (
+              <PostCard key={index} post={post} />
+            ))}
           </div>
         </>
       )}

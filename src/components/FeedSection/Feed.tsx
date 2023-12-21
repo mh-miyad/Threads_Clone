@@ -9,7 +9,7 @@ const Feed = () => {
     data: posts,
     isError,
     refetch,
-  } = useUserPostQuery(1, { refetchOnFocus: true, refetchOnReconnect: true });
+  } = useUserPostQuery(1, { pollingInterval: 5000, refetchOnReconnect: true });
 
   if (isError) {
     return <div>Error:{isError}</div>;
@@ -24,9 +24,11 @@ const Feed = () => {
           {posts?.data?.length === 0 && (
             <div className="text-center text-3xl text-gray-400">No Post</div>
           )}
-          {posts?.data?.map((post: any) => {
-            return <CardComp key={post._id} data={post} />;
-          })}
+          <div className="flex flex-col-reverse">
+            {posts?.data?.map((post: any) => {
+              return <CardComp key={post._id} data={post} />;
+            })}
+          </div>
         </>
       )}
     </div>

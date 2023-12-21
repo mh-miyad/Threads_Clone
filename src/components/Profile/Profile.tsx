@@ -256,7 +256,7 @@ const ProfileComp = () => {
           {" "}
           Edit Profile
         </button>
-        <PostSection />
+        <PostSection email={user?.email} />
       </div>
       <div>
         <Dialog open={isOpen} onClose={() => setIsOpen(false)}>

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Card } from "../ui/card";
 import Image from "next/image";
-import { HiDotsHorizontal } from "react-icons/hi";
+import { HiDotsHorizontal, HiHeart } from "react-icons/hi";
+import moment from "moment";
 
-const PostCard = () => {
+const PostCard = ({ post }: { post: any }) => {
+  const { post: userPost, image, like } = post;
   const [menu, setMenu] = useState(false);
   return (
     <div className="max-w-xs mx-auto ">
@@ -11,7 +13,7 @@ const PostCard = () => {
         <div className="flex flex-col p-5 ">
           <div className="flex justify-between ">
             <Image
-              src={"https://i.pravatar.cc/300"}
+              src={image || "https://i.pravatar.cc/300"}
               alt="coffee"
               width={50}
               height={50}
@@ -39,8 +41,22 @@ const PostCard = () => {
               </div>
             </div>
           </div>
-          {`  "Coffee is fuel, sleep is a bug fix." ☕
-"The best code is no code at all." ✨`}
+          {userPost}
+        </div>
+        <div className="flex justify-between items-center px-5 mb-4">
+          <span className="text-xs cursor-pointer text-gray-500 dark:text-gray-400 flex items-center gap-2">
+            <span>
+              {" "}
+              <HiHeart className="text-red-500" />{" "}
+            </span>
+            <span className="text-gray-500 dark:text-indigo-300 font-bold">
+              {like.length}
+            </span>
+          </span>
+
+          <p className="text-xs  text-gray-500 dark:text-gray-400">
+            {moment().fromNow()}
+          </p>
         </div>
       </Card>
     </div>
