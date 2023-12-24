@@ -126,7 +126,7 @@ const ProfileComp = () => {
                       shape="circle"
                       size="2xl"
                       img={`${userMain?.map((ele: any) => ele.image)}` || image}
-                      className="bg-indigo-500 cursor-pointer "
+                      className="bg-white dark:bg-black ring-2 dark:ring-violet-400 cursor-pointer "
                       onClick={() => setOpen(true)}
                     />
                   )}
