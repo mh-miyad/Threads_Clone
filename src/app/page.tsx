@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <>
       <PostTool />
-      <div className="flex justify-center max-w-lg mx-auto ">
+      <div className="max-w-lg w-full mx-auto ">
         <Feed />
       </div>
     </>

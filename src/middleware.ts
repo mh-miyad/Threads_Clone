@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { useEffect } from "react";
 
 export async function middleware(request: NextRequest, response: NextResponse) {
   const token = await request.cookies.has("token");

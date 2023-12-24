@@ -111,7 +111,7 @@ const CardComp = ({ data }: { data: any }) => {
                   <span className="ml-1 text-blue-500">487</span>
                 </div> */}
               </div>
-              <div className="text-gray-400 dark:text-gray-300 uppercase">
+              <div className="text-gray-400 text-[10px] sm:text-sm dark:text-gray-300 uppercase">
                 {formattedDate || Moment().fromNow(data.createdAt)}
               </div>
             </div>
