@@ -41,8 +41,8 @@ const Navbar = () => {
       ) : (
         <>
           <div className="">
-            <nav className="z-50 transition-all ease-linear duration-200 flex  justify-around items-center fixed mx-auto top-0  left-0  text-black dark:text-gray-200 bg-white/50 backdrop-blur-lg py-3 dark:bg-slate-950 px-10  w-full lg:px-20  rounded-xl border-b-2 border-blue-500/20 ">
-              <div className="md:hidden"></div>
+            <nav className="z-50 transition-all ease-linear duration-200 flex  justify-between items-center fixed mx-auto top-0  left-0  text-black dark:text-gray-200 bg-white/50 backdrop-blur-lg py-3 dark:bg-slate-950 px-10  w-full lg:px-20  rounded-xl border-b-2 border-blue-500/20 ">
+              <div className=""></div>
               <div className="">
                 <Link href={"/"}>
                   <Image
@@ -157,15 +157,7 @@ const Navbar = () => {
             </nav>
 
             <div className="md:hidden bottom-0 left-0 fixed w-full px-4 py-3 z-50 bg-white/50 dark:bg-slate-950/50 backdrop-blur-lg border-t-2 border-blue-500/20 rounded-xl">
-              {/* <button
-                onClick={() => setOpenMenu(false)}
-                className="text-4xl   w-full z-50 text-right  cursor-pointer text-red-500  font-thin scale-90 hover:scale-100 transition-all ease-linear duration-200"
-              >
-                <span className="border px-3 rounded-lg border-red-500 ">
-                  x
-                </span>
-              </button> */}
-              <ul className="flex justify-around  items-center px-10">
+              <ul className="flex justify-between  items-center gap-2 px-2">
                 <li className=" ">
                   <Link href={"/"} className=" ">
                     <TbHome2
