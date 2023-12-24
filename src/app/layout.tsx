@@ -6,6 +6,7 @@ import Container from "@/components/Container/Container";
 import Navbar from "@/components/Navbar/Navbar";
 import Html from "@/components/Theme/Html";
 import ContextApi from "@/Provider/ContextApi";
+import BackdropFilter from "@/components/backdrop/BackdropFilter";
 
 const inter = Raleway({ subsets: ["cyrillic-ext"] });
 
@@ -42,6 +43,7 @@ export default function RootLayout({
         <ContextApi>
           <body className={inter.className}>
             <Container>
+              <BackdropFilter />
               <Navbar />
               <div className="max-w-2xl mx-auto ">{children}</div>
             </Container>
