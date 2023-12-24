@@ -62,7 +62,7 @@ const PostTool = () => {
           {/* Register your input into the hook by invoking the "register" function */}
           <div className="focus-within:ring focus-within:ring-fuchsia-400 dark:focus-within:ring-violet-600  border-2 border-purple-400 rounded-lg p-2 dark:border-violet-900 focus:outline-none scale-90 hover:scale-100 transition-all duration-200 ease-in-out shadow-2xl shadow-violet-500/20">
             <textarea
-              className="resize-none w-full  h-28 dark:bg-transparent border-none focus:outline-none py-7 px-10 scroll-smooth "
+              className="resize-none w-full  h-28 bg-transparent border-none focus:outline-none py-7 px-10 scroll-smooth "
               placeholder="Write something..."
               {...register("post", { required: true })}
               maxLength={200}
